@@ -11,6 +11,7 @@ import {
   getConfigKeys
 } from '../config';
 import paths from '../paths';
+const date = new Date().toISOString().substring(0, 10);
 
 const cron = require('node-cron');
 
@@ -32,21 +33,13 @@ const endTasks = [{
 
 // Run git commit without checking for a message using raw arguments
 gulp.task('commit', () => {
-  shell.exec('git commit -m "initial commit: ' + date);
-  // return gulp.src(paths.assetsDir + paths.allPattern)
-  //   .pipe($.git.commit(undefined, {
-  //     args: '-m "initial commit: "' + date,
-  //     disableMessageRequirement: true
-  //   }));
+  shell.exec('git commit -am "initial commit: ' + date + '" --quiet');
 });
 
 // Run git add
 // src is the file(s) to add (or ./*)
 gulp.task('add', () => {
-  shell.exec('git add .');
-  // return gulp.src('.' + paths.allPattern)
-  //   .pipe($.plumber())
-  //   .pipe($.git.add());
+  shell.exec('git add . &> /dev/null');
 });
 
 // Run git pull
@@ -91,72 +84,29 @@ gulp.task('gitsend', (cb) => {
   runSequence('add', 'commit', 'push', cb);
 });
 
-// Tag the repo with a version
-const getTagMessage = () => {
-  const dateString = new Date().toISOString().substring(0, 10);
-  const tagMessage = `${dateString}: Tag for env: ${env}`;
-  return tagMessage;
-};
-
-gulp.task('git-tag', (cb) => {
-  if (env.environment === 'development') {
-    const randomHash = Math.random().toString(36).substring(7).substring(0, 8);
-    $.git.tag(`${env}.${randomHash}`, getTagMessage(), function (error) {
-      if (error) {
-        return cb(error);
-      }
-      $.git.push('origin', {
-        args: '--tags'
-      }, cb);
-    });
-  }
-});
-
 // Run node cron to remind user to perform a git commit.
-cron.schedule('0 */15 * * * *', (err) => {
-  if (err) throw err;
-
-  const action = 'Let\'s do it';
-  notifier.notify({
-    title: 'Git',
-    message: 'You\'re doing a great job! Let\'s not hide it, why not do a git commit and show everyone?',
-    sound: 'Funk',
-    closeLabel: 'No thanks I\'ll do it later.',
-    actions: action
-  }, function(err, response, metadata) {
+gulp.task('gitRemind', () => {
+  cron.schedule('0 */15 * * * *', (err) => {
     if (err) throw err;
 
-    if (metadata.activationValue !== action) {
-      return; // No need to continue
-    }
-
-    notifier.notify(
-      {
-        title: 'Commit Message',
-        message: 'What commit message would you like to put?',
-        sound: 'Funk',
-        // case sensitive
-        reply: true
-      },
-      function(err, response, metadata) {
-        if (err) throw err;
-        
-        shell.exec('git add . && git commit -am"' + metadata.activationValue + '" && git push');
-      }
-    );
-    
+    gulp.start('notify');
   });
 });
 
 // If project isn't set to team then set a cron job to run git every two hours.
-if (env.project === false) {
-  cron.schedule('0 0 */2 * * *', (err) => {
-    if (err) throw err;
-    console.log('\nGit Cron Started\n');
-    gulp.start('gitsend');
-    console.log('\nGit Cron Finished\n');
-  });
-}
+gulp.task('gitCron', (cb) => {
+  if (env.project === false) {
+    cron.schedule('0 0 */2 * * *', (err) => {
+      if (err) throw err;
+      console.log('\nGit Cron Started\n');
+      gulp.start('gitsend');
+      cb();
+      console.log('\nGit Cron Finished\n');
+    });
+  } else {
+    cb();
+  }
+});
 
 gulp.task('notify', () => {
   const action = 'Let\'s do it';

@@ -17,7 +17,8 @@ title: Your awesome title
 email: your-email@example.com
 description: Just a cool Jekyll site by Kubix.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://127.0.0.1:4000" # the base hostname & protocol for your site, e.g. http://example.com
+url: "http://localhost:4000" # the base hostname & protocol for your site, e.g. http://example.com
+# parmalink: /:title
 twitter_username: jekyllrb
 github_username:  jekyll
 
@@ -55,12 +56,16 @@ plugins:
 
 # Include from processing.
 include:
+  - _pages
   - .htaccess
 
 # Collections
 collections:
-  pages: # Set a collection called pages that way the permalink will be by default url/page instead of url/pages/page.
+  modules: # Set a collection called pages that way the permalink will be by default url/page instead of url/pages/page.
     output: true
+    permalink: /:path
+  helpers:
+    ouput: true
     permalink: /:path
 
 # Exclude from processing.
@@ -99,5 +104,3 @@ exclude:
   - .codeclimate.yml
   - .github/
   - CHANGELOG.md
-  - kubimini.sh
-  - kubi.sh

@@ -23,6 +23,8 @@ GEM
     ethon (0.11.0)
       ffi (>= 1.3.0)
     eventmachine (1.2.7)
+    faraday (0.15.3)
+      multipart-post (>= 1.2, < 3)
     fastimage (1.6.8)
       addressable (~> 2.3, >= 2.3.5)
     ffi (1.9.25)
@@ -111,6 +113,7 @@ GEM
     mixlib-cli (1.7.0)
     mixlib-config (2.2.13)
       tomlrb
+    multipart-post (2.0.0)
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     nuggets (1.6.0)
@@ -132,6 +135,8 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
+    sentry-raven (2.7.4)
+      faraday (>= 0.7.6, < 1.0)
     subexec (0.2.3)
     thread_safe (0.3.6)
     titlecase (0.1.1)
@@ -164,6 +169,7 @@ DEPENDENCIES
   mdl (~> 0.5.0)
   minima (~> 2.0)
   rake (~> 12.3)
+  sentry-raven
   tzinfo-data
 
 BUNDLED WITH

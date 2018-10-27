@@ -94,10 +94,7 @@ gulp.task('js', () => {
     .pipe($.if(env.sourcemaps, $.sourcemaps.write('.'))) // Create the sourcemap.
     .pipe(gulp.dest(paths.siteAssetsDir + paths.scriptFolderName))
     .pipe($.if(env.sync, stream))
-    .pipe($.size({
-      showFiles: true
-    }))
-    .pipe(gulp.dest('./' + paths.jekyllAssetsDir + paths.scriptFolderName));
+    .pipe(gulp.dest(paths.jekyllAssetsDir + paths.scriptFolderName));
 });
 
 gulp.task('legacyJS', () => {
@@ -112,15 +109,6 @@ gulp.task('legacyJS', () => {
       showFiles: true
     }))
     .pipe(gulp.dest('./' + paths.jekyllAssetsDir + paths.scriptFolderName + '/legacy'));
-});
-
-gulp.task('scripts', (cb) => {
-  if (env.project) {
-    runSequence('gitget', 'js', 'gitsend', cb);
-  } else {
-    gulp.start('js');
-    cb();
-  }
 });
 
 // Build Modernizr script

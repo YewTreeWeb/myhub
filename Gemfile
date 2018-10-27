@@ -44,3 +44,6 @@ gem "rake", "~> 12.3"
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
 gem "mdl", "~> 0.5.0"
+
+# Sentry.io
+gem "sentry-raven"

@@ -29,7 +29,7 @@ versions = versions.map(version => {
 });
 
 // 'gulp fonts' -- copies fonts to temporary assets directory
-gulp.task('fonts', () => {
+gulp.task('copy:fonts', () => {
   return $.watch(paths.fontFiles + '/**/*', {
       base: '.'
     })
@@ -60,12 +60,12 @@ gulp.task('copy:scriptsfile', () => {
     }
   );
 
-  gulp.src(paths.includeFoldeName + '/scripts.html')
+  gulp.src(paths.includeFoldeName + '/scripts-dev.html')
     .pipe($.plumber())
     .pipe($.replace(/{{JQUERY_VERSION}}/g, versions[0]))
     .pipe($.replace(/{{JQUERY_SRI_HASH}}/g, hash.toString()))
     .pipe($.replace(/{{MODERNIZR_VERSION}}/g, versions[1]))
-    .pipe($.rename('scripts-compiled.html'))
+    .pipe($.rename('scripts.html'))
     .pipe(gulp.dest(paths.includeFoldeName));
 });
 
@@ -160,14 +160,8 @@ gulp.task('copy:sassyinputs', () => {
     .pipe(gulp.dest(paths.sassVendorFiles + '/sassy-inputs'));
 });
 
-// Copy CSS files from Node Modules to CSS Vendors
-gulp.task('copy:minicss', () => {
-  return gulp.src(['node_modules/mini.css/dist/mini-default.min.css', 'node_modules/mini.css/dist/mini-default.css'])
-    .pipe(gulp.dest(paths.cssFiles + '/' + paths.vendorFolderName + '/mini'));
-});
-
 // Copy all styles
-gulp.task('copy:styles', ['copy:bourbon', 'copy:family', 'copy:hamburgers', 'copy:hover', 'copy:mini', 'copy:minicss', 'copy:outdatedbrowser', 'copy:slick', 'copy:typesettings', 'copy:include', 'copy:sassyinputs']);
+gulp.task('copy:styles', ['copy:bourbon', 'copy:family', 'copy:hamburgers', 'copy:hover', 'copy:mini', 'copy:outdatedbrowser', 'copy:slick', 'copy:typesettings', 'copy:include', 'copy:sassyinputs']);
 
 // Main copy task
 gulp.task('copy', (cb) => {

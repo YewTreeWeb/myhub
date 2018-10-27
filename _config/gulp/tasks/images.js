@@ -53,6 +53,9 @@ const settings = {
     imageminMozjpeg({
       quality: 90
     }),
+    imageminWebp({
+      quality: 50
+    })
   ],
   webp: [
     imageminWebp({
@@ -70,32 +73,17 @@ gulp.task('images', () => {
       verbose: true
     })).on('error', handleErrors))
     .pipe(gulp.dest(paths.siteAssetsDir + paths.imageFolderName + '/'))
-    .pipe(gulp.dest(paths.imageFiles + '/min/'))
-    .pipe($.size({
-      title: 'images'
-    }))
-    .pipe($.if(env.stream, stream()));
+    .pipe($.if(env.stream, stream()))
+    .pipe(gulp.dest(paths.imageFiles + '/min/'));
 });
 
-gulp.task('webp', () => {
-  gulp.src(paths.imageFilesGlob)
-    .pipe($.plumber())
-    .pipe($.webp())
-    .pipe($.imagemin(settings.webp, {
-      verbose: true
-    }).on('error', handleErrors))
-    .pipe(gulp.dest(paths.siteAssetsDir + paths.imageFolderName + '/'))
-    .pipe(gulp.dest(paths.imageFiles + '/webp/'))
-    .pipe($.size({
-      showFiles: true
-    }));
-});
-
-gulp.task('image:optimise', (cb) => {
-  if (env.project){
-    runSequence('gitget', 'images', 'gitsend', cb);
-  } else {
-    gulp.start('images');
-    cb();
-  }
-});
+// gulp.task('webp', () => {
+//   gulp.src(paths.imageFilesGlob)
+//     .pipe($.plumber())
+//     // .pipe($.webp())
+//     .pipe($.imagemin(settings.webp, {
+//       verbose: true
+//     }).on('error', handleErrors))
+//     .pipe(gulp.dest(paths.siteAssetsDir + paths.imageFolderName + '/'))
+//     .pipe(gulp.dest(paths.imageFiles + '/webp/'));
+// });

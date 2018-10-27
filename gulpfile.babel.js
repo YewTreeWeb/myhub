@@ -20,7 +20,7 @@ const env = getConfigKeys();
 requireDir('./_config/gulp/tasks', { recurse: true });
 
 // Run the default gulp task
-gulp.task('default', ['copy', 'serve']);
+gulp.task('default', ['gitRemind', 'gitCron', 'serve']);
 
 /**
  *
@@ -31,7 +31,7 @@ gulp.task('default', ['copy', 'serve']);
 // Run pre build tasks
 gulp.task('prebuild', (cb) => {
   env.environment = 'production';
-  runSequence('gitget', 'clean:site', 'clean:cache', 'sass', 'criticalCSS', ['js', 'legacyJS'], ['html', 'xml'], 'images', 'webp', 'fonts', 'jekyll', cb);
+  runSequence('gitget', 'clean:site', 'clean:cache', 'copy', 'sass', 'criticalCSS', ['js', 'legacyJS'], ['html', 'xml'], 'images', 'copy:fonts', 'jekyll', cb);
 });
 
 // Run the project build

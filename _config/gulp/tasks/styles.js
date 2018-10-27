@@ -82,9 +82,6 @@ gulp.task('sass', () => {
     ]))
     .pipe($.gcmq())
     .pipe($.csscomb())
-    .pipe($.size({
-      showFiles: true
-    }))
     .pipe($.if(env.purge, $.purgecss({
       content: ['**/*.html'],
       fontFace: false,
@@ -96,9 +93,6 @@ gulp.task('sass', () => {
     })))
     .pipe(gulp.dest(paths.siteAssetsDir + paths.cssFolderName))
     .pipe($.if(env.sync, stream))
-    .pipe($.size({
-      showFiles: true
-    }))
     .pipe(gulp.dest('./' + paths.jekyllAssetsDir + paths.cssFolderName));
 });
 
@@ -120,13 +114,4 @@ gulp.task('criticalCSS', () => {
         showFiles: true
       }));
   });
-});
-
-gulp.task('styles', (cb) => {
-  if (env.project) {
-    runSequence('gitget', 'sass', 'gitsend', cb);
-  } else {
-    gulp.start('sass');
-    cb();
-  }
 });

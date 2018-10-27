@@ -29,7 +29,7 @@ const settings = {
     '_includes/*.html',
     '_config.yml',
     '_config.dev.yml',
-    '!' + paths.includeFoldeName + '/scripts.+(html|md|MD|markdown|MARKDOWN)'
+    '!' + paths.includeFoldeName + '/scripts-dev.+(html|md|MD|markdown|MARKDOWN)'
   ]
 };
 
@@ -53,32 +53,17 @@ const syncOptions = {
 gulp.task('serve', ['jekyll'], () => {
   browserSync.init(syncOptions);
 
-  gulp.watch([paths.scssFilesGlob, paths.sassFilesGlob], ['styles']);
-  gulp.watch(paths.jsFilesGlob, ['scripts']);
-  gulp.watch(paths.imageFilesGlob, ['image:optimise']);
-  gulp.watch(paths.includeFoldeName + '/scripts.+(html|md)', ['copy:scriptsfile']);
+  // gulp.watch([paths.scssFilesGlob, paths.sassFilesGlob], ['sass']);
+  // gulp.watch(paths.jsFilesGlob, ['js']);
+  // gulp.watch(paths.imageFilesGlob, ['images']);
+  // gulp.watch(paths.includeFoldeName + '/scripts-dev.+(html|md)', ['copy:scriptsfile']);
   gulp.watch(settings.jekyllWatch, ['jekyll-rebuild']);
-});
-
-/*
- *
- * Gulp default watch
- *
- */
-
-gulp.task('watch', () => {
-  
+  gulp.start('gulpWatch');
 });
 
 gulp.task('jekyll-rebuild', ['jekyll'], () => {
   browserSync.reload();
 });
-
-/*
- *
- * Gulp watch for new files
- *
- */
 
 gulp.task('stylesWatch', (done) => {
   return $.watch([paths.scssFilesGlob, paths.sassFilesGlob], function () {
@@ -97,13 +82,6 @@ gulp.task('scriptsWatch', (done) => {
 gulp.task('imagesWatch', (done) => {
   return $.watch(paths.imageFilesGlob, function () {
     gulp.start('image:optimise');
-    done();
-  });
-});
-
-gulp.task('htmlWatch', (done) => {
-  return $.watch(paths.htmlPattern, function () {
-    gulp.start('html');
     done();
   });
 });
