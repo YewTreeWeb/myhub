@@ -23,8 +23,13 @@ const browserSync = require('browser-sync').create();
 const stream = browserSync.stream;
 
 const env = getConfigKeys();
+const mode = (env.environment === 'development') ? 'development' : 'production';
 
 const settings = {
+  src: [
+    paths.imageFilesGlob,
+    '!' + paths.imageFiles + '/min/**/*'
+  ],
   imgMin: [
     imageminPngquant({
       speed: 1,
@@ -52,38 +57,21 @@ const settings = {
     }),
     imageminMozjpeg({
       quality: 90
-    }),
-    imageminWebp({
-      quality: 50
-    })
-  ],
-  webp: [
-    imageminWebp({
-      quality: 50
     })
   ]
-}
+};
 
 gulp.task('images', () => {
   gulp.src(paths.imageFilesGlob)
-    .pipe($.watch(paths.imageFilesGlob))
     .pipe($.plumber())
     .pipe($.changed(paths.siteAssetsDir + paths.imageFolderName, { hasChanged: $.changed.compareContents }).on('error', handleErrors))
-    .pipe($.cache(imagemin(settings.imgMin, {
+    .pipe($.cache($.webp()))
+    .pipe($.cache($.imagemin(settings.imgMin, {
       verbose: true
     })).on('error', handleErrors))
-    .pipe(gulp.dest(paths.siteAssetsDir + paths.imageFolderName + '/'))
-    .pipe($.if(env.stream, stream()))
-    .pipe(gulp.dest(paths.imageFiles + '/min/'));
+    .pipe($.if(mode === 'development', gulp.dest(paths.siteAssetsDir + paths.imageFolderName + '/')))
+    .pipe(gulp.dest(paths.jekyllAssetsDir + paths.imageFolderName))
+    .pipe($.if('*.webp', gulp.dest(paths.imageFiles + '/webp')))
+    .pipe($.if('*.+(jpg|JPG|jpeg|JPEG|png|PNG|svg|SVG|gif|GIF|tif|TIF)', gulp.dest(paths.imageFiles + '/minified')))
+    .pipe($.if(env.stream, stream()));
 });
-
-// gulp.task('webp', () => {
-//   gulp.src(paths.imageFilesGlob)
-//     .pipe($.plumber())
-//     // .pipe($.webp())
-//     .pipe($.imagemin(settings.webp, {
-//       verbose: true
-//     }).on('error', handleErrors))
-//     .pipe(gulp.dest(paths.siteAssetsDir + paths.imageFolderName + '/'))
-//     .pipe(gulp.dest(paths.imageFiles + '/webp/'));
-// });

@@ -1,3 +1,4 @@
+import fs from 'fs';
 import gulp from 'gulp';
 const $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'gulp.*', '-', '@*/gulp{-,.}*'],
@@ -37,10 +38,10 @@ versions = versions.map(version => {
 const webpackConfig = {
   mode: mode,
   entry: {
-    main: './' + paths.jsFiles + '/kubix.js'
+    main: './' + paths.jsFiles + '/main.js'
   },
   output: {
-    filename: 'kubix.js'
+    filename: 'main.js'
   },
   module: {
     rules: [{
@@ -93,8 +94,11 @@ gulp.task('js', () => {
     })))
     .pipe($.if(env.sourcemaps, $.sourcemaps.write('.'))) // Create the sourcemap.
     .pipe(gulp.dest(paths.siteAssetsDir + paths.scriptFolderName))
-    .pipe($.if(env.sync, stream))
-    .pipe(gulp.dest(paths.jekyllAssetsDir + paths.scriptFolderName));
+    .pipe(gulp.dest(paths.jekyllAssetsDir + paths.scriptFolderName))
+    .pipe($.size({
+      showFiles: true
+    }))
+    .pipe($.if(env.sync, stream));
 });
 
 gulp.task('legacyJS', () => {

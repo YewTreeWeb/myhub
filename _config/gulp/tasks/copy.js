@@ -28,17 +28,6 @@ versions = versions.map(version => {
   return version.replace(/(~|\^)/g, '');
 });
 
-// 'gulp fonts' -- copies fonts to temporary assets directory
-gulp.task('copy:fonts', () => {
-  return $.watch(paths.fontFiles + '/**/*', {
-      base: '.'
-    })
-    .pipe(gulp.dest(paths.siteAssetsDir + paths.fontFolderName))
-    .pipe(size({
-      title: 'fonts'
-    }));
-});
-
 // Create htaccess file
 gulp.task('copy:.htaccess', () =>
   fs.access('./.htaccess', (err, cb) => {

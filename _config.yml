@@ -19,8 +19,12 @@ description: Just a cool Jekyll site by Kubix.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://yewtreeweb.co.uk/" # the base hostname & protocol for your site, e.g. http://example.com
 # parmalink: /:title
-twitter_username: jekyllrb
-github_username:  jekyll
+twitter_link: https://twitter.com/yewtreeweb
+facebook_link: https://m.facebook.com/Yew-Tree-Web-146294038864167/
+linkedin_link: https://www.linkedin.com/in/mathewteague
+instagram_link: https://www.instagram.com/mat.teague/
+github_link: https://github.com/YewTreeWeb
+gitlab_link: https://gitlab.com/YewTreeWeb
 
 # Pagination V2
 pagination:
@@ -40,7 +44,6 @@ kramdown:
   hard_wrap: false
 
 highlighter: rouge
-theme: minima
 # Plugins
 plugins:
   - jekyll-algolia

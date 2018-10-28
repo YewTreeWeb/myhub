@@ -1,0 +1,42 @@
+{%- if page.class -%}
+    {%- assign class = page.class | prepend: 'page-' -%}
+{%- elsif page.title -%}
+    {%- assign class = page.title | prepend: 'page-' -%}
+{%- else -%}
+    {%- assign class = site.title -%}
+{%- endif -%}
+{%- if layout == post -%}
+    {%- assign type = 'post' | prepend: 'type-' -%}
+{%- else -%}
+    {%- assign type = 'page' | prepend: 'type-' -%}
+{%- endif -%}
+
+<!DOCTYPE HTML>
+<html class="no-js" lang="{{ site.lang | default: 'en_GB' }}">
+
+{%- include head.html -%}
+
+<body class="landing is-preload {{ class }} {{ page.layout | prepend: 'layout-' }} {{ type }}">
+
+    <!-- Page Wrapper -->
+    <div id="page-wrapper">
+
+        <!-- Header -->
+        {%- include header.html -%}
+
+        <!-- site content -->
+        <main class="page-content" aria-label="Content">
+            {{ content }}
+        </main>
+
+        <!-- Footer -->
+        {%- include footer.html -%}
+
+    </div>
+
+    <!-- Scripts -->
+    {%- include scripts.html -%}
+
+</body>
+
+</html>

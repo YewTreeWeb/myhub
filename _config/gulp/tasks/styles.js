@@ -92,8 +92,11 @@ gulp.task('sass', () => {
       suffix: '.min'
     })))
     .pipe(gulp.dest(paths.siteAssetsDir + paths.cssFolderName))
-    .pipe($.if(env.sync, stream))
-    .pipe(gulp.dest('./' + paths.jekyllAssetsDir + paths.cssFolderName));
+    .pipe(gulp.dest(paths.jekyllAssetsDir + paths.cssFolderName))
+    .pipe($.size({
+      showFiles: true
+    }))
+    .pipe($.if(env.sync, stream));
 });
 
 gulp.task('criticalCSS', () => {

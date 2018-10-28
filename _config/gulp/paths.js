@@ -8,7 +8,7 @@ var paths = {};
 // Directory locations.
 paths.assetsDir        = './_src/';                            // The files Gulp will handle.
 paths.siteDir          = './_site/';                              // The resulting static site.
-paths.jekyllAssetsDir  = './assets/';                             // The asset files Jekyll will handle.
+paths.jekyllAssetsDir  = './assets/';                          // The asset files Jekyll will handle.
 paths.siteAssetsDir    = paths.siteDir + paths.jekyllAssetsDir; // The resulting static site's assets.
 
 // Folder naming conventions.

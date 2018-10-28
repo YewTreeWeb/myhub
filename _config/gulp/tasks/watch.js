@@ -57,33 +57,52 @@ gulp.task('serve', ['jekyll'], () => {
   // gulp.watch(paths.jsFilesGlob, ['js']);
   // gulp.watch(paths.imageFilesGlob, ['images']);
   // gulp.watch(paths.includeFoldeName + '/scripts-dev.+(html|md)', ['copy:scriptsfile']);
-  gulp.watch(settings.jekyllWatch, ['jekyll-rebuild']);
-  gulp.start('gulpWatch');
+  // gulp.watch(settings.jekyllWatch, ['jekyll-rebuild']);
+  gulp.start('watch');
 });
+
+gulp.task('watch:scriptsfile', () => {
+  return $.watch(paths.includeFoldeName + '/scripts-dev.+(html|md|MD|markdown|MARKDOWN)', () => {
+    gulp.start('copy:scriptsfile');
+  });
+});
+
+gulp.task('watch:jekyll', () => {
+  return $.watch(settings.jekyllWatch, () => {
+    gulp.start('jekyll-rebuild');
+  });
+});
+
+gulp.task('watch:fonts', () => {
+  return $.watch(paths.fontFiles + '/**/*', {
+    base: '.'
+  })
+    .pipe(gulp.dest(paths.siteAssetsDir + paths.fontFolderName))
+    .pipe($.size({
+      title: 'fonts'
+    }));
+});
+
+gulp.task('watch:styles', () => {
+  return $.watch([paths.scssFilesGlob, paths.sassFilesGlob], () => {
+    gulp.start('sass');
+  });
+});
+
+gulp.task('watch:scripts', () => {
+  return $.watch(paths.jsFilesGlob, () => {
+    gulp.start('js');
+  });
+});
+
+gulp.task('watch:images', () => {
+  return $.watch(paths.imageFilesGlob, () => {
+    gulp.start('images');
+  });
+});
+
+gulp.task('watch', ['watch:styles', 'watch:scripts', 'watch:fonts', 'watch:images', 'watch:scriptsfile', 'watch:jekyll']);
 
 gulp.task('jekyll-rebuild', ['jekyll'], () => {
   browserSync.reload();
 });
-
-gulp.task('stylesWatch', (done) => {
-  return $.watch([paths.scssFilesGlob, paths.sassFilesGlob], function () {
-    gulp.start('styles');
-    done();
-  });
-});
-
-gulp.task('scriptsWatch', (done) => {
-  return $.watch(paths.jsFilesGlob, function () {
-    gulp.start('scripts');
-    done();
-  });
-});
-
-gulp.task('imagesWatch', (done) => {
-  return $.watch(paths.imageFilesGlob, function () {
-    gulp.start('image:optimise');
-    done();
-  });
-});
-
-gulp.task('gulpWatch', ['stylesWatch', 'scriptsWatch', 'imagesWatch']);

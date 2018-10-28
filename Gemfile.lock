@@ -88,7 +88,7 @@ GEM
     jekyll-typogrify (0.3.5)
       titlecase
       typogruby
-    jekyll-watch (2.0.0)
+    jekyll-watch (2.1.2)
       listen (~> 3.0)
     json (2.1.0)
     kramdown (1.17.0)
@@ -105,10 +105,6 @@ GEM
     mini_magick (3.8.1)
       subexec (~> 0.2.1)
     mini_portile2 (2.3.0)
-    minima (2.5.0)
-      jekyll (~> 3.5)
-      jekyll-feed (~> 0.9)
-      jekyll-seo-tag (~> 2.1)
     minitest (5.11.3)
     mixlib-cli (1.7.0)
     mixlib-config (2.2.13)
@@ -167,7 +163,6 @@ DEPENDENCIES
   jekyll-tagging-related_posts (~> 1.0)
   jekyll-typogrify (~> 0.3.5)
   mdl (~> 0.5.0)
-  minima (~> 2.0)
   rake (~> 12.3)
   sentry-raven
   tzinfo-data
