@@ -19,7 +19,7 @@ const env = getConfigKeys();
 // gulp jekyll --env production -- runs Jekyll build with production settings
 gulp.task('jekyll', () => {
   const JEKYLL_ENV = (env.environment === 'production') ? 'JEKYLL_ENV=production' : ''
-  const build = (env.environment === 'development') ? 'jekyll build --verbose --config _config.yml, _config.dev.yml' : 'jekyll build';
+  const build = (env.environment === 'development') ? 'jekyll build --verbose --config _config.yml,_config.dev.yml' : 'jekyll build';
 
   shell.exec(JEKYLL_ENV + 'bundle exec ' + build);
 });
