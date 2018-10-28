@@ -27,8 +27,8 @@ const mode = (env.environment === 'development') ? 'development' : 'production';
 
 const settings = {
   src: [
-    paths.imageFilesGlob,
-    '!' + paths.imageFiles + '/min/**/*'
+    paths.imageFiles + '/*.+(jpg|JPG|jpeg|JPEG|png|PNG|svg|SVG|gif|GIF|tif|TIF)',
+    '!' + paths.imageFiles + '/origin/*'
   ],
   imgMin: [
     imageminPngquant({
@@ -61,17 +61,30 @@ const settings = {
   ]
 };
 
-gulp.task('images', () => {
-  gulp.src(paths.imageFilesGlob)
+gulp.task('images:optimise', () => {
+  gulp.src(settings.src)
     .pipe($.plumber())
-    .pipe($.changed(paths.siteAssetsDir + paths.imageFolderName, { hasChanged: $.changed.compareContents }).on('error', handleErrors))
-    .pipe($.cache($.webp()))
+    .pipe($.changed(paths.jekyllAssetsDir + paths.imageFolderName, { hasChanged: $.changed.compareContents }).on('error', handleErrors))
     .pipe($.cache($.imagemin(settings.imgMin, {
       verbose: true
     })).on('error', handleErrors))
     .pipe($.if(mode === 'development', gulp.dest(paths.siteAssetsDir + paths.imageFolderName + '/')))
     .pipe(gulp.dest(paths.jekyllAssetsDir + paths.imageFolderName))
-    .pipe($.if('*.webp', gulp.dest(paths.imageFiles + '/webp')))
-    .pipe($.if('*.+(jpg|JPG|jpeg|JPEG|png|PNG|svg|SVG|gif|GIF|tif|TIF)', gulp.dest(paths.imageFiles + '/minified')))
+    .pipe(gulp.dest(paths.imageFiles))
     .pipe($.if(env.stream, stream()));
+});
+
+gulp.task('images:webp', () => {
+  gulp.src(settings.src)
+    .pipe($.plumber())
+    .pipe($.changed(paths.jekyllAssetsDir + paths.imageFolderName, { hasChanged: $.changed.compareContents }).on('error', handleErrors))
+    .pipe($.cache($.webp()).on('error', handleErrors))
+    .pipe($.if(mode === 'development', gulp.dest(paths.siteAssetsDir + paths.imageFolderName + '/')))
+    .pipe(gulp.dest(paths.jekyllAssetsDir + paths.imageFolderName))
+    .pipe(gulp.dest(paths.imageFiles))
+    .pipe($.if(env.stream, stream()));
+});
+
+gulp.task('images', (cb) => {
+  runSequence('copy:images', 'images:optimise', 'images:webp', cb);
 });

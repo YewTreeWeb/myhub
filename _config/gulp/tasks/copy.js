@@ -149,6 +149,12 @@ gulp.task('copy:sassyinputs', () => {
     .pipe(gulp.dest(paths.sassVendorFiles + '/sassy-inputs'));
 });
 
+gulp.task('copy:images', () => {
+  gulp.src([paths.imageFiles + '/*.*', '!_src/images/origin'])
+    .pipe($.plumber())
+    .pipe(gulp.dest(paths.imageFiles + '/origin'));
+});
+
 // Copy all styles
 gulp.task('copy:styles', ['copy:bourbon', 'copy:family', 'copy:hamburgers', 'copy:hover', 'copy:mini', 'copy:outdatedbrowser', 'copy:slick', 'copy:typesettings', 'copy:include', 'copy:sassyinputs']);
 

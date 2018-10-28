@@ -6432,7 +6432,7 @@ button:disabled,
     vertical-align: middle;
 
     border: 0;
-    background-image: url('images/close.svg');
+    background-image: url('/assets/images/close.svg');
     background-repeat: no-repeat;
     background-position: 4.85em 1em;
 }
@@ -6561,7 +6561,7 @@ body.is-menu-visible #menu
     content: '';
     vertical-align: top;
 
-    background-image: url('images/bars.svg');
+    background-image: url('/assets/images/bars.svg');
     background-repeat: no-repeat;
     background-position: right center;
 }
@@ -6735,7 +6735,7 @@ body.is-menu-visible #menu
 
     content: '';
 
-    background-image: url('images/arrow.svg');
+    background-image: url('/assets/images/arrow.svg');
     background-repeat: no-repeat;
     background-position: center;
     -webkit-background-size: contain;
@@ -6847,10 +6847,10 @@ body.is-preload #banner:after
 
     text-align: center;
 
-    background-image: -webkit-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../images/banner.jpg');
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.5)), to(rgba(0,0,0,.5))), url('../../images/banner.jpg');
-    background-image:      -o-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../images/banner.jpg');
-    background-image:         linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../images/banner.jpg');
+    background-image: -webkit-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/banner.jpg');
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.5)), to(rgba(0,0,0,.5))), url('../../assets/images/banner.jpg');
+    background-image:      -o-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/banner.jpg');
+    background-image:         linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/banner.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center center;
@@ -6961,10 +6961,10 @@ body.landing #page-wrapper
 {
     padding-top: 0;
 
-    background-image: -webkit-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../images/banner.jpg');
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.5)), to(rgba(0,0,0,.5))), url('../../images/banner.jpg');
-    background-image:      -o-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../images/banner.jpg');
-    background-image:         linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../images/banner.jpg');
+    background-image: -webkit-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/banner.jpg');
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.5)), to(rgba(0,0,0,.5))), url('../../assets/images/banner.jpg');
+    background-image:      -o-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/banner.jpg');
+    background-image:         linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/banner.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center center;
@@ -6985,10 +6985,10 @@ body.is-mobile.landing #page-wrapper
 body.is-mobile.landing #banner,
 body.is-mobile.landing .wrapper.style4
 {
-    background-image: -webkit-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../images/banner.jpg');
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.5)), to(rgba(0,0,0,.5))), url('../../images/banner.jpg');
-    background-image:      -o-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../images/banner.jpg');
-    background-image:         linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../images/banner.jpg');
+    background-image: -webkit-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/banner.jpg');
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.5)), to(rgba(0,0,0,.5))), url('../../assets/images/banner.jpg');
+    background-image:      -o-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/banner.jpg');
+    background-image:         linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/banner.jpg');
     background-repeat: no-repeat;
     background-position: center center;
     -webkit-background-size: cover;
