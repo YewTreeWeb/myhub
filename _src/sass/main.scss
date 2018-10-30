@@ -1323,6 +1323,7 @@
 
 		&.style1 {
 			@include wrapper(accent1);
+			background-color: green;
 		}
 
 		&.style2 {

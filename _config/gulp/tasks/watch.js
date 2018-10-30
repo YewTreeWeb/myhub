@@ -34,7 +34,7 @@ const settings = {
 };
 
 const syncOptions = {
-  files: ['_site' + '/**'],
+  files: ['_site/**/*'],
   port: env.port, // change port to match default Jekyll
   ui: {
     port: env.port + 1
@@ -42,7 +42,6 @@ const syncOptions = {
   server: {
     baseDir: '_site'
   },
-  ghostMode: false, // Toggle to mirror clicks, reloads etc. (performance)
   logFileChanges: (env.debug) ? true : false,
   logLevel: (env.debug) ? 'debug' : '',
   injectChanges: true,
@@ -50,7 +49,7 @@ const syncOptions = {
   open: env.open // Toggle to automatically open page when starting.
 };
 
-gulp.task('serve', ['jekyll'], () => {
+gulp.task('serve', ['sass', 'js', 'jekyll'], () => {
   browserSync.init(syncOptions);
 
   // gulp.watch([paths.scssFilesGlob, paths.sassFilesGlob], ['sass']);
@@ -58,7 +57,6 @@ gulp.task('serve', ['jekyll'], () => {
   // gulp.watch(paths.imageFilesGlob, ['images']);
   // gulp.watch(paths.includeFoldeName + '/scripts-dev.+(html|md)', ['copy:scriptsfile']);
   // gulp.watch(settings.jekyllWatch, ['jekyll-rebuild']);
-  gulp.start('watch');
 });
 
 gulp.task('watch:scriptsfile', () => {

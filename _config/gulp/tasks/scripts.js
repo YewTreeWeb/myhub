@@ -72,6 +72,9 @@ const settings = {
 gulp.task('js', () => {
   return gulp.src(settings.scripts)
     .pipe($.plumber())
+    .pipe($.if(mode === 'development', $.debug({
+      title: 'js:'
+    })))
     .pipe(webpackStream(webpackConfig), webpack)
     .pipe($.if(env.sourcemaps, $.sourcemaps.init({
       loadMaps: true
@@ -95,9 +98,6 @@ gulp.task('js', () => {
     .pipe($.if(env.sourcemaps, $.sourcemaps.write('.'))) // Create the sourcemap.
     .pipe(gulp.dest(paths.siteAssetsDir + paths.scriptFolderName))
     .pipe(gulp.dest(paths.jekyllAssetsDir + paths.scriptFolderName))
-    .pipe($.size({
-      showFiles: true
-    }))
     .pipe($.if(env.sync, stream));
 });
 

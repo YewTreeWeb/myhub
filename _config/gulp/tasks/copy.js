@@ -150,7 +150,7 @@ gulp.task('copy:sassyinputs', () => {
 });
 
 gulp.task('copy:images', () => {
-  gulp.src([paths.imageFiles + '/*.*', '!_src/images/origin'])
+  gulp.src([paths.imageFiles + '/*.*', '!' + paths.imageFiles + '/*.webp', '!' + paths.imageFiles + '/origin'])
     .pipe($.plumber())
     .pipe(gulp.dest(paths.imageFiles + '/origin'));
 });

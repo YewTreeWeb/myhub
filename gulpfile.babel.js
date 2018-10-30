@@ -20,7 +20,7 @@ const env = getConfigKeys();
 requireDir('./_config/gulp/tasks', { recurse: true });
 
 // Run the default gulp task
-gulp.task('default', ['gitRemind', 'gitCron', 'serve']);
+gulp.task('default', ['gitRemind', 'gitCron', 'serve', 'watch']);
 
 /**
  *

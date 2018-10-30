@@ -23,6 +23,7 @@ const browserSync = require('browser-sync').create();
 const stream = browserSync.stream();
 
 const env = getConfigKeys();
+const mode = (env.environment === 'development') ? 'development' : 'production';
 
 const settings = {
   styles: [
@@ -30,14 +31,6 @@ const settings = {
     paths.sassFilesGlob,
     '!' + paths.sassVendorFiles + '/**/*.+(scss|sass)'
   ],
-  precision: 10,
-  sassOptions() {
-    return env.minify ? {
-      outputStyle: 'compressed'
-    } : {
-      outputStyle: 'nested'
-    };
-  },
   fallbacks: true
 };
 
@@ -72,10 +65,21 @@ const criticalPages = [{
 gulp.task('sass', () => {
   return gulp.src(settings.styles)
     .pipe($.plumber())
+    .pipe($.if(mode === 'development', $.debug({
+      title: 'sass:'
+    })))
     .pipe($.if(env.sourcemaps, $.sourcemaps.init()))
-    .pipe($.cssimport(cssimport)) // Parses a CSS file, finds imports, grabs the content of the linked file and replaces the import statement with it.
+    // .pipe($.cssimport(cssimport)) // Parses a CSS file, finds imports, grabs the content of the linked file and replaces the import statement with it.
     .pipe($.sassGlob())
-    .pipe($.sass(settings.sassOptions(), settings.precision).on('error', handleErrors))
+    .pipe($.sass({
+      outputStyle: env.minify ? {
+          outputStyle: 'compressed'
+        } : {
+          outputStyle: 'nested'
+        },
+        includePaths: ['scss'],
+        onError: browserSync.notify
+    }).on('error', handleErrors))
     .pipe($.postcss([
       rucksack(settings.fallbacks),
       autoprefixer(prefixer)
@@ -93,9 +97,6 @@ gulp.task('sass', () => {
     })))
     .pipe(gulp.dest(paths.siteAssetsDir + paths.cssFolderName))
     .pipe(gulp.dest(paths.jekyllAssetsDir + paths.cssFolderName))
-    .pipe($.size({
-      showFiles: true
-    }))
     .pipe($.if(env.sync, stream));
 });
 
