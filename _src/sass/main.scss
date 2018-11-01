@@ -112,6 +112,8 @@
 
 	body {
 		background: _palette(bg);
+		background: blanchedalmond;
+		// color: blue;
 
 		// Stops initial animations until page loads.
 			&.is-preload {
@@ -582,6 +584,7 @@
 
 		&.style1 {
 			color: _palette(accent2, bg);
+			background: green;
 		}
 
 		&.style2 {
@@ -1323,7 +1326,7 @@
 
 		&.style1 {
 			@include wrapper(accent1);
-			background-color: green;
+			// background-color: blue;
 		}
 
 		&.style2 {
