@@ -18,8 +18,7 @@ import { handleErrors } from './functions';
 
 // Reload Browser
 const browserSync = require('browser-sync').create();
-const stream = browserSync.stream();
-const reload = browserSync.reload;
+const stream = browserSync.stream;
 
 const env = getConfigKeys();
 
@@ -87,26 +86,25 @@ gulp.task('sass', () => {
     })))
     .pipe(gulp.dest(paths.siteAssetsDir + paths.cssFolderName))
     .pipe(gulp.dest(paths.jekyllAssetsDir + paths.cssFolderName))
-    .pipe(reload(({ stream: true })));
-    // .pipe(stream);
+    .pipe($.if(env.sync, stream()));
 });
 
-// gulp.task('criticalCSS', () => {
-//   criticalPages.map((page) => {
-//     return gulp.src(paths.cssFiles + '/kubix.css')
-//       .pipe($.plumber())
-//       .pipe($.penthouse({
-//         out: page.name + '.css',
-//         url: page.url,
-//         width: 1920,
-//         height: 1080,
-//         userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' // pretend to be googlebot when grabbing critical page styles.
-//       }).on('error', handleErrors))
-//       .pipe($.uglifycss())
-//       .pipe(gulp.dest(paths.siteAssetsDir + paths.cssFolderName + '/critical'))
-//       .pipe(gulp.dest(paths.includeFoldeName + '/critical'))
-//       .pipe($.size({
-//         showFiles: true
-//       }));
-//   });
-// });
+gulp.task('criticalCSS', () => {
+  criticalPages.map((page) => {
+    return gulp.src(paths.cssFiles + '/kubix.css')
+      .pipe($.plumber())
+      .pipe($.penthouse({
+        out: page.name + '.css',
+        url: page.url,
+        width: 1920,
+        height: 1080,
+        userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' // pretend to be googlebot when grabbing critical page styles.
+      }).on('error', handleErrors))
+      .pipe($.uglifycss())
+      .pipe(gulp.dest(paths.siteAssetsDir + paths.cssFolderName + '/critical'))
+      .pipe(gulp.dest(paths.includeFoldeName + '/critical'))
+      .pipe($.size({
+        showFiles: true
+      }));
+  });
+});

@@ -33,10 +33,11 @@ const syncOptions = {
   server: {
     baseDir: '_site'
   },
+  files: '_site/**/*',
   logFileChanges: (env.debug) ? true : false,
   logLevel: (env.debug) ? 'debug' : '',
   notify: env.notify,
-  open: true // Toggle to automatically open page when starting.
+  open: env.open // Toggle to automatically open page when starting.
 };
 
 gulp.task('serve', ['sass', 'js', 'jekyll'], () => {
