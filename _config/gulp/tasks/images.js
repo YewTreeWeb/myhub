@@ -12,15 +12,10 @@ import imageminSvgo from 'imagemin-svgo';
 import imageminWebp from 'imagemin-webp';
 import runSequence from 'run-sequence';
 import {
-  errorHandler,
   getConfigKeys
 } from '../config';
 import paths from '../paths';
 import { handleErrors } from './functions';
-
-// Reload Browser
-const browserSync = require('browser-sync').create();
-const stream = browserSync.stream;
 
 const env = getConfigKeys();
 const mode = (env.environment === 'development') ? 'development' : 'production';
@@ -70,8 +65,7 @@ gulp.task('images:optimise', () => {
     })).on('error', handleErrors))
     .pipe($.if(mode === 'development', gulp.dest(paths.siteAssetsDir + paths.imageFolderName + '/')))
     .pipe(gulp.dest(paths.jekyllAssetsDir + paths.imageFolderName))
-    .pipe(gulp.dest(paths.imageFiles))
-    .pipe($.if(env.stream, stream()));
+    .pipe(gulp.dest(paths.imageFiles));
 });
 
 gulp.task('images:webp', () => {
@@ -81,8 +75,7 @@ gulp.task('images:webp', () => {
     .pipe($.cache($.webp()).on('error', handleErrors))
     .pipe($.if(mode === 'development', gulp.dest(paths.siteAssetsDir + paths.imageFolderName + '/')))
     .pipe(gulp.dest(paths.jekyllAssetsDir + paths.imageFolderName))
-    .pipe(gulp.dest(paths.imageFiles))
-    .pipe($.if(env.stream, stream()));
+    .pipe(gulp.dest(paths.imageFiles));
 });
 
 gulp.task('images', (cb) => {

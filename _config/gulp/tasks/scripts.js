@@ -97,8 +97,7 @@ gulp.task('js', () => {
     })))
     .pipe($.if(env.sourcemaps, $.sourcemaps.write('.'))) // Create the sourcemap.
     .pipe(gulp.dest(paths.siteAssetsDir + paths.scriptFolderName))
-    .pipe(gulp.dest(paths.jekyllAssetsDir + paths.scriptFolderName))
-    .pipe($.if(env.sync, stream));
+    .pipe(gulp.dest(paths.jekyllAssetsDir + paths.scriptFolderName));
 });
 
 gulp.task('legacyJS', () => {

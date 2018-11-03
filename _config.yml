@@ -66,10 +66,8 @@ include:
 collections:
   modules: # Set a collection called pages that way the permalink will be by default url/page instead of url/pages/page.
     output: true
-    permalink: /:path
   helpers:
     ouput: true
-    permalink: /:path
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

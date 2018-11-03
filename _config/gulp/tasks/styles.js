@@ -10,9 +10,7 @@ const $ = require('gulp-load-plugins')({
 });
 import autoprefixer from 'autoprefixer';
 import rucksack from 'rucksack-css';
-import runSequence from 'run-sequence';
 import {
-  errorHandler,
   getConfigKeys
 } from '../config';
 import paths from '../paths';
@@ -21,15 +19,14 @@ import { handleErrors } from './functions';
 // Reload Browser
 const browserSync = require('browser-sync').create();
 const stream = browserSync.stream();
+const reload = browserSync.reload({ stream: true });
 
 const env = getConfigKeys();
-const mode = (env.environment === 'development') ? 'development' : 'production';
 
 const settings = {
-  styles: [
-    paths.scssFilesGlob,
-    paths.sassFilesGlob,
-    '!' + paths.sassVendorFiles + '/**/*.+(scss|sass)'
+  sassSrc: [
+    paths.sassFiles + '/main.scss',
+    paths.sassFiles + '/main.sass'
   ],
   fallbacks: true
 };
@@ -63,41 +60,34 @@ const criticalPages = [{
 }];
 
 gulp.task('sass', () => {
-  return gulp.src(settings.styles)
+  return gulp.src(settings.sassSrc)
     .pipe($.plumber())
-    .pipe($.if(mode === 'development', $.debug({
-      title: 'sass:'
-    })))
     .pipe($.if(env.sourcemaps, $.sourcemaps.init()))
     // .pipe($.cssimport(cssimport)) // Parses a CSS file, finds imports, grabs the content of the linked file and replaces the import statement with it.
-    .pipe($.sassGlob())
+    // .pipe($.sassGlob())
     .pipe($.sass({
-      outputStyle: env.minify ? {
-          outputStyle: 'compressed'
-        } : {
-          outputStyle: 'nested'
-        },
-        includePaths: ['scss'],
-        onError: browserSync.notify
+      errLogToConsole: true,
+      outputStyle: 'nested'
     }).on('error', handleErrors))
-    .pipe($.postcss([
-      rucksack(settings.fallbacks),
-      autoprefixer(prefixer)
-    ]))
-    .pipe($.gcmq())
-    .pipe($.csscomb())
-    .pipe($.if(env.purge, $.purgecss({
-      content: ['**/*.html'],
-      fontFace: false,
-      rejected: false
-    })))
+    // .pipe($.postcss([
+    //   rucksack(settings.fallbacks),
+    //   autoprefixer(prefixer)
+    // ]))
+    // .pipe($.gcmq())
+    // .pipe($.csscomb())
+    // .pipe($.if(env.purge, $.purgecss({
+    //   content: ['**/*.html'],
+    //   fontFace: false,
+    //   rejected: false
+    // })))
     .pipe($.if(env.sourcemaps, $.sourcemaps.write('.')))
-    .pipe($.if(env.minify, $.rename({
-      suffix: '.min'
-    })))
+    // .pipe($.if(env.minify, $.uglifycss()))
+    // .pipe($.if(env.minify, $.rename({
+    //   suffix: '.min'
+    // })))
     .pipe(gulp.dest(paths.siteAssetsDir + paths.cssFolderName))
     .pipe(gulp.dest(paths.jekyllAssetsDir + paths.cssFolderName))
-    .pipe($.if(env.sync, stream));
+    .pipe($.if(env.sync, reload));
 });
 
 gulp.task('criticalCSS', () => {

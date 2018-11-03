@@ -28,6 +28,18 @@ versions = versions.map(version => {
   return version.replace(/(~|\^)/g, '');
 });
 
+// Copy Fonts
+gulp.task('copy:fonts', () => {
+  return gulp.src(paths.fontFiles + '/**/*', {
+    base: '.'
+  })
+    .pipe(gulp.dest(paths.siteAssetsDir + paths.fontFolderName))
+    .pipe($.size({
+      title: 'fonts'
+    }))
+    .pipe(gulp.dest(paths.jekyllAssetsDir + paths.fontFolderName));
+});
+
 // Create htaccess file
 gulp.task('copy:.htaccess', () =>
   fs.access('./.htaccess', (err, cb) => {

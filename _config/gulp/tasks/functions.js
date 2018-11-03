@@ -1,19 +1,8 @@
 import notify from 'gulp-notify';
 import git from 'gulp-git';
-import {
-  errorHandler,
-  getConfigKeys
-} from '../config';
-import paths from '../paths';
 
-// Reload Browser
-const browserSync = require('browser-sync').create();
-
-const env = getConfigKeys();
-
-/*
+/**
  * Error catch function
- *
  */
 export function handleErrors() {
   const args = Array.prototype.slice.call(arguments);
@@ -37,7 +26,9 @@ Array.prototype.contains = function ( needle ) {
   return false;
 };
 
-// function reload(done) {
+/**
+ * Git checkout branch
+ */
 export function gitCheckout(name) {
   let check = Array();
   if (check.contains(`${name}`)) {
