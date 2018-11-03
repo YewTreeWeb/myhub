@@ -35,7 +35,6 @@ const syncOptions = {
   },
   logFileChanges: (env.debug) ? true : false,
   logLevel: (env.debug) ? 'debug' : '',
-  injectChanges: true,
   notify: env.notify,
   open: true // Toggle to automatically open page when starting.
 };

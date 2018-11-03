@@ -19,7 +19,7 @@ import { handleErrors } from './functions';
 // Reload Browser
 const browserSync = require('browser-sync').create();
 const stream = browserSync.stream();
-const reload = browserSync.reload({ stream: true });
+const reload = browserSync.reload;
 
 const env = getConfigKeys();
 
@@ -63,49 +63,50 @@ gulp.task('sass', () => {
   return gulp.src(settings.sassSrc)
     .pipe($.plumber())
     .pipe($.if(env.sourcemaps, $.sourcemaps.init()))
-    // .pipe($.cssimport(cssimport)) // Parses a CSS file, finds imports, grabs the content of the linked file and replaces the import statement with it.
-    // .pipe($.sassGlob())
+    .pipe($.cssimport(cssimport)) // Parses a CSS file, finds imports, grabs the content of the linked file and replaces the import statement with it.
+    .pipe($.sassGlob())
     .pipe($.sass({
       errLogToConsole: true,
       outputStyle: 'nested'
     }).on('error', handleErrors))
-    // .pipe($.postcss([
-    //   rucksack(settings.fallbacks),
-    //   autoprefixer(prefixer)
-    // ]))
-    // .pipe($.gcmq())
-    // .pipe($.csscomb())
-    // .pipe($.if(env.purge, $.purgecss({
-    //   content: ['**/*.html'],
-    //   fontFace: false,
-    //   rejected: false
-    // })))
+    .pipe($.postcss([
+      rucksack(settings.fallbacks),
+      autoprefixer(prefixer)
+    ]))
+    .pipe($.gcmq())
+    .pipe($.csscomb())
+    .pipe($.if(env.purge, $.purgecss({
+      content: ['**/*.html'],
+      fontFace: false,
+      rejected: false
+    })))
     .pipe($.if(env.sourcemaps, $.sourcemaps.write('.')))
-    // .pipe($.if(env.minify, $.uglifycss()))
-    // .pipe($.if(env.minify, $.rename({
-    //   suffix: '.min'
-    // })))
+    .pipe($.if(env.minify, $.uglifycss()))
+    .pipe($.if(env.minify, $.rename({
+      suffix: '.min'
+    })))
     .pipe(gulp.dest(paths.siteAssetsDir + paths.cssFolderName))
     .pipe(gulp.dest(paths.jekyllAssetsDir + paths.cssFolderName))
-    .pipe($.if(env.sync, reload));
+    .pipe(reload(({ stream: true })));
+    // .pipe(stream);
 });
 
-gulp.task('criticalCSS', () => {
-  criticalPages.map((page) => {
-    return gulp.src(paths.cssFiles + '/kubix.css')
-      .pipe($.plumber())
-      .pipe($.penthouse({
-        out: page.name + '.css',
-        url: page.url,
-        width: 1920,
-        height: 1080,
-        userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' // pretend to be googlebot when grabbing critical page styles.
-      }).on('error', handleErrors))
-      .pipe($.uglifycss())
-      .pipe(gulp.dest(paths.siteAssetsDir + paths.cssFolderName + '/critical'))
-      .pipe(gulp.dest(paths.includeFoldeName + '/critical'))
-      .pipe($.size({
-        showFiles: true
-      }));
-  });
-});
+// gulp.task('criticalCSS', () => {
+//   criticalPages.map((page) => {
+//     return gulp.src(paths.cssFiles + '/kubix.css')
+//       .pipe($.plumber())
+//       .pipe($.penthouse({
+//         out: page.name + '.css',
+//         url: page.url,
+//         width: 1920,
+//         height: 1080,
+//         userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' // pretend to be googlebot when grabbing critical page styles.
+//       }).on('error', handleErrors))
+//       .pipe($.uglifycss())
+//       .pipe(gulp.dest(paths.siteAssetsDir + paths.cssFolderName + '/critical'))
+//       .pipe(gulp.dest(paths.includeFoldeName + '/critical'))
+//       .pipe($.size({
+//         showFiles: true
+//       }));
+//   });
+// });
