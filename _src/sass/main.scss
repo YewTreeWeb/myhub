@@ -1573,7 +1573,7 @@
 		position: relative;
 		text-align: center;
 
-		h2 {
+		h1 {
 			@include vendor('transform', 'scale(1)');
 			@include vendor('transition', ('transform 0.5s ease', 'opacity 0.5s ease'));
 			display: inline-block;
@@ -1687,7 +1687,7 @@
 
 	body.is-preload {
 		#banner {
-			h2 {
+			h1 {
 				@include vendor('transform', 'scale(0.95)');
 				opacity: 0;
 
@@ -1884,7 +1884,7 @@
 
 	body.landing {
 		#page-wrapper {
-			@include vendor('background-image', ('linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5))', 'url("../../assets/images/banner.jpg")'));
+			@include vendor('background-image', ('linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5))', 'url("../../assets/images/work.jpg")'));
 			background-attachment: fixed;
 			background-position: center center;
 			background-repeat: no-repeat;

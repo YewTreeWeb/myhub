@@ -5430,7 +5430,7 @@ button.primary,
 .button.primary
 {
     color: #fff !important;
-    background-color: #ed4933;
+    background-color: #b5d99c;
     -webkit-box-shadow: none !important;
             box-shadow: none !important;
 }
@@ -5441,7 +5441,7 @@ input[type='button'].primary:hover,
 button.primary:hover,
 .button.primary:hover
 {
-    background-color: #ef5e4a !important;
+    background-color: #c3e0ae !important;
 }
 
 input[type='submit'].primary:active,
@@ -5450,7 +5450,7 @@ input[type='button'].primary:active,
 button.primary:active,
 .button.primary:active
 {
-    background-color: #eb341c !important;
+    background-color: #a7d28a !important;
 }
 
 input[type='submit'].disabled,
@@ -6617,7 +6617,7 @@ body.is-menu-visible #menu
             justify-content: center;
 }
 
-#banner h2
+#banner h1
 {
     font-size: 1.75em;
 
@@ -6641,8 +6641,8 @@ body.is-menu-visible #menu
     opacity: 1;
 }
 
-#banner h2:before,
-#banner h2:after
+#banner h1:before,
+#banner h1:after
 {
     position: absolute;
 
@@ -6662,13 +6662,13 @@ body.is-menu-visible #menu
     background: #fff;
 }
 
-#banner h2:before
+#banner h1:before
 {
     top: 0;
     left: 0;
 }
 
-#banner h2:after
+#banner h1:after
 {
     right: 0;
     bottom: 0;
@@ -6766,7 +6766,7 @@ body.is-menu-visible #menu
     background: #2e3842;
 }
 
-body.is-preload #banner h2
+body.is-preload #banner h1
 {
     -webkit-transform: scale(.95);
         -ms-transform: scale(.95);
@@ -6775,8 +6775,8 @@ body.is-preload #banner h2
     opacity: 0;
 }
 
-body.is-preload #banner h2:before,
-body.is-preload #banner h2:after
+body.is-preload #banner h1:before,
+body.is-preload #banner h1:after
 {
     width: 0;
 }
@@ -6961,10 +6961,10 @@ body.landing #page-wrapper
 {
     padding-top: 0;
 
-    background-image: -webkit-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/banner.jpg');
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.5)), to(rgba(0,0,0,.5))), url('../../assets/images/banner.jpg');
-    background-image:      -o-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/banner.jpg');
-    background-image:         linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/banner.jpg');
+    background-image: -webkit-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/work.jpg');
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.5)), to(rgba(0,0,0,.5))), url('../../assets/images/work.jpg');
+    background-image:      -o-linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/work.jpg');
+    background-image:         linear-gradient(top, rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../assets/images/work.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center center;

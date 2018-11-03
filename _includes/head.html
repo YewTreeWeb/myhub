@@ -1,8 +1,48 @@
+{%- if jekyll.environment == 'development' -%}
+    {%- assign css = 'main.css' -%}
+{%- else -%}
+    {%- assign css = 'main.min.css' -%}
+{%- endif -%}
+
+{%- assign style = '/assets/css/' | append: css -%}
+
 <head>
-    <title>{{ site.title }}</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="/assets/css/main.css">
-    <noscript>
-        <link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ site.title }}</title>
+    <meta name="description" content="{{ site.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="dns-prefetch" href="//cdn.polyfill.io">
+    <link rel="dns-prefetch" href="//code.jquery.com">
+    <link rel="dns-prefetch" href="https://ajax.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://pro.fontawesome.com" crossorigin>
+    
+    {%- if page.url == site.baseurl -%}
+        <link rel="preload" href="{{ '/assets/images/work.jpg' | relative_url }}" as="image">
+        <link rel="preload" href="{{ '/assets/images/work.webp' | relative_url }}" as="image">
+    {%- endif -%}
+
+    <link rel="stylesheet" href="/assets/css/normalize.css">
+    <link rel="preload" href="{{ style | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+
+    <script async src="https://pro.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-3yBLeJ4waqGSAf4A8pjZ13UF7GuhgbdKnBQvIp/TkWoXtQbtwjlIPNjkDRJ46UCn" crossorigin="anonymous"></script>
+    <script>document.write('<script async src="/assets/js/all.min.js"><\/script>')</script>
+
+    <script id="callback">
+        var expires = new Date(+new Date + (7 * 24 * 60 * 60 * 1000)).toUTCString();
+        document.cookie = 'Cookie=true; expires=' + expires;
+    </script>
+    <script id="loadCSS">
+        !function (t) { "use strict"; t.loadCSS || (t.loadCSS = function () { }); var e = loadCSS.relpreload = {}; if (e.support = function () { var e; try { e = t.document.createElement("link").relList.supports("preload") } catch (t) { e = !1 } return function () { return e } }(), e.bindMediaToggle = function (t) { var e = t.media || "all"; function a() { t.media = e } t.addEventListener ? t.addEventListener("load", a) : t.attachEvent && t.attachEvent("onload", a), setTimeout(function () { t.rel = "stylesheet", t.media = "only x" }), setTimeout(a, 3e3) }, e.poly = function () { if (!e.support()) for (var a = t.document.getElementsByTagName("link"), n = 0; n < a.length; n++) { var o = a[n]; "preload" !== o.rel || "style" !== o.getAttribute("as") || o.getAttribute("data-loadcss") || (o.setAttribute("data-loadcss", !0), e.bindMediaToggle(o)) } }, !e.support()) { e.poly(); var a = t.setInterval(e.poly, 500); t.addEventListener ? t.addEventListener("load", function () { e.poly(), t.clearInterval(a) }) : t.attachEvent && t.attachEvent("onload", function () { e.poly(), t.clearInterval(a) }) } "undefined" != typeof exports ? exports.loadCSS = loadCSS : t.loadCSS = loadCSS }("undefined" != typeof global ? global : this);
+    </script>
+    
+    {%- feed_meta -%}
 </head>

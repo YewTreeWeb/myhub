@@ -96,13 +96,13 @@
 		),
 
 		accent6: (
-			bg:				#ed4933,
+			bg:				rgba(181, 217, 156, 1),
 			fg-bold:		#ffffff,
 			fg:				mix(#ed4933, #ffffff, 25%),
 			fg-light:		mix(#ed4933, #ffffff, 40%),
 			border:			rgba(0,0,0,0.125),
 			border-bg:		rgba(255,255,255,0.075),
-			border2:		rgba(0,0,0,0.25),
+			border2:		rgba(143, 202, 95, 0.25),
 			border2-bg:		rgba(255,255,255,0.2)
 		),
 
@@ -117,3 +117,9 @@
 			border2-bg:		rgba(0,0,0,0.1)
 		)
 	);
+
+	$color1: rgba(25, 25, 32, 1);
+$color2: rgba(181, 217, 156, 1);
+$color3: rgba(71, 71, 71, 1);
+$color4: rgba(255, 254, 254, 1);
+$color5: rgba(130, 166, 138, 1);

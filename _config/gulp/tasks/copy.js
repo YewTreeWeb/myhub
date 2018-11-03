@@ -8,14 +8,9 @@ import shell from 'shelljs';
 import ssri from 'ssri';
 import runSequence from 'run-sequence';
 import {
-  errorHandler,
   getConfigKeys
 } from '../config';
 import paths from '../paths';
-import {
-  handleErrors,
-  reload
-} from './functions';
 import pkg from '../../../package.json';
 
 const env = getConfigKeys();
