@@ -24,7 +24,6 @@
     "test/pointerevents",
     "test/postmessage",
     "test/css/flexbox",
-    "test/css/fontdisplay",
     "test/css/fontface",
     "test/elem/picture",
     "test/img/sizes",
@@ -32,6 +31,5 @@
     "test/webgl",
     "test/websockets",
     "test/workers/webworkers"
-    
   ]
 }

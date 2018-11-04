@@ -20,7 +20,7 @@ const env = getConfigKeys();
 requireDir('./_config/gulp/tasks', { recurse: true });
 
 // Run the default gulp task
-gulp.task('default', ['serve', 'watch']);
+gulp.task('default', ['serve', 'watch', 'gulpWatch']);
 
 /**
  *

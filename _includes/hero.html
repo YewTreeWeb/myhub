@@ -1,0 +1,28 @@
+<section id="banner">
+  <div class="inner">
+    <h1>
+      {% if page.path contains '_posts' %}
+      	Useful links
+      {% elsif page.url == site.baseurl %}
+		YewTree Hub
+      {% else %}
+      	{{ page.title }}
+      {% endif %}
+    </h1>
+    <p class="banner__lead text-center">
+      {% if page.url contains "/blog/" or page.path contains '_posts' %}
+      	for when you need help and inspiration.
+      {% elsif page.path contains '_playground' %}
+      	let the code flow
+      {% elsif page.path contains '_modules' %}
+      	into the lab
+      {% else %}
+      	because everybody needs a place to learn... and CODE!
+      {% endif %}
+    </p>
+    <ul class="actions special">
+      <li><a href="#" class="button primary">Activate</a></li>
+    </ul>
+  </div>
+  <a href="#one" class="more scrolly">Learn More</a>
+</section>

@@ -67,7 +67,7 @@ module.exports = {
    */
   sync: true,
   port: 4000,
-  open: true,
+  open: false,
   notify: true,
   debug: true
 };

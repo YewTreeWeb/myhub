@@ -100,20 +100,6 @@ gulp.task('js', () => {
     .pipe(gulp.dest(paths.jekyllAssetsDir + paths.scriptFolderName));
 });
 
-gulp.task('legacyJS', () => {
-  return gulp.src(config.legacyJS)
-    .pipe($.plumber())
-    .pipe($.changed(paths.siteAssetsDir + paths.scriptFolderName + '/legacy', {
-      hasChanged: $.changed.compareContents
-    }).on('error', handleErrors))
-    .pipe($.concat('legacy.min.js').on('error', handleErrors))
-    .pipe($.uglify().on('error', handleErrors))
-    .pipe($.size({
-      showFiles: true
-    }))
-    .pipe(gulp.dest('./' + paths.jekyllAssetsDir + paths.scriptFolderName + '/legacy'));
-});
-
 // Build Modernizr script
 gulp.task('modernizr', (done) => {
   modernizr.build(modernizrConfig, (code) => {
@@ -124,13 +110,14 @@ gulp.task('modernizr', (done) => {
 // Concat vendor scripts into one
 gulp.task('jsVendors', () => {
   const vendors = [
-    paths.vendorFiles + '/**/*',
-    '!' + `jquery-${versions[0]}.min.js`,
-    '!' + `modernizr-${versions[1]}.min.js`,
-    '!html5shiv.min.js'
+    paths.vendorFiles + paths.jsPattern,
+    '!' + paths.vendorFiles + `jquery-${versions[0]}.min.js`,
+    '!' + paths.vendorFiles + `modernizr-${versions[1]}.min.js`,
+    '!' + paths.vendorFiles + 'html5shiv.min.js',
+    '!' + paths.vendorFiles + 'fontawesome.min.js'
   ];
 
-  return gulp.src(vendors)
+  return gulp.src(vendors, { base: '.' })
     .pipe($.plumber())
     .pipe($.concat('vendors.min.js'))
     .pipe($.uglify())

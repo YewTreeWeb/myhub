@@ -13,7 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: YewTreeWeb Hub
+title: YewTree Hub
 email: mathew.teague@yewtreeweb.co.uk
 description: Just a cool Jekyll site by Kubix.
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -67,7 +67,9 @@ collections:
   modules: # Set a collection called pages that way the permalink will be by default url/page instead of url/pages/page.
     output: true
   helpers:
-    ouput: true
+    output: true
+  playground:
+    output: true
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

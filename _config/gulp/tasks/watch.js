@@ -8,6 +8,8 @@ import {
 } from '../config';
 import paths from '../paths';
 
+import runSequence from 'run-sequence';
+
 // Reload Browser
 const browserSync = require('browser-sync').create();
 
@@ -56,17 +58,23 @@ gulp.task('serve', ['sass', 'js', 'jekyll'], () => {
 //   });
 // });
 
-// gulp.task('watch:fonts', () => {
-//   return $.watch(paths.fontFiles + '/**/*', () => {
-//     gulp.start('reload:fonts');
-//   });
-// });
+gulp.task('watch:fonts', () => {
+  return $.watch(paths.fontFiles + '/**/*', () => {
+    gulp.start('reload:fonts');
+  });
+});
 
-// gulp.task('watch:styles', () => {
-//   return $.watch([paths.scssFilesGlob, paths.sassFilesGlob], () => {
-//     gulp.start('sass');
-//   });
-// });
+gulp.task('watch:jsVendors', () => {
+  return $.watch(paths.vendorFiles + paths.jsPattern, () => {
+    gulp.start('copy:jsVendors');
+  });
+});
+
+gulp.task('watch:cssVendors', () => {
+  return $.watch(paths.cssVendorFiles + paths.cssPattern, () => {
+    gulp.start('copy:cssVendors');
+  });
+});
 
 // gulp.task('watch:scripts', () => {
 //   return $.watch(paths.jsFilesGlob, () => {
@@ -74,21 +82,25 @@ gulp.task('serve', ['sass', 'js', 'jekyll'], () => {
 //   });
 // });
 
-// gulp.task('watch:images', () => {
-//   return $.watch(paths.imageFilesGlob, () => {
-//     gulp.start('reload:images');
-//   });
-// });
+gulp.task('watch:images', () => {
+  return $.watch(paths.imageFilesGlob, () => {
+    gulp.start('reload:images');
+  });
+});
 
 // gulp.task('watch', ['watch:styles', 'watch:scripts', 'watch:fonts', 'watch:images', 'watch:scriptsfile', 'watch:jekyll']);
 
 gulp.task('watch', () => {
-  gulp.watch(['./_src/sass/**/*.scss', paths.sassFilesGlob], ['sass']);
+  gulp.watch([paths.scssFilesGlob, paths.sassFilesGlob], ['sass']);
   gulp.watch(paths.fontFiles + '**/*', ['reload:fonts']);
   gulp.watch(paths.jsFilesGlob, ['reload:js']);
   gulp.watch(paths.imageFilesGlob, ['reload:images']);
   gulp.watch(paths.includeFoldeName + '/scripts-dev.+(html|md|MD|markdown|MARKDOWN)', ['copy:scriptsfile']);
   gulp.watch(settings.jekyllWatch, ['jekyll-rebuild']);
+});
+
+gulp.task('gulpWatch', (cb) => {
+  runSequence(['watch:fonts', 'watch:jsVendors', 'watch:cssVendors', 'watch:images'], cb);
 });
 
 /**

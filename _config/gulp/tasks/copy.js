@@ -94,7 +94,8 @@ gulp.task('copy:jsVendors', ['modernizr', 'jsVendors'], () => {
     paths.vendorFiles + '/vendors.min.js',
     paths.vendorFiles + `/jquery-${versions[0]}.min.js`,
     paths.vendorFiles + `/modernizr-${versions[1]}.min.js`,
-    paths.vendorFiles + '/html5shiv.min.js'
+    paths.vendorFiles + '/html5shiv.min.js',
+    paths.vendorFiles + '/fontawesome.min.js'
   ];
 
   if (!fs.existsSync(paths.jekyllVendorFiles)) {
@@ -154,6 +155,11 @@ gulp.task('copy:include', () => {
 gulp.task('copy:sassyinputs', () => {
   return gulp.src('node_modules/sassy-inputs/sass/*')
     .pipe(gulp.dest(paths.sassVendorFiles + '/sassy-inputs'));
+});
+
+gulp.task('copy:cssVendors', () => {
+  return gulp.src(paths.cssFilesGlob)
+  .pipe(gulp.dest(paths.jekyllCssFiles));
 });
 
 gulp.task('copy:images', () => {
