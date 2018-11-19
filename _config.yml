@@ -64,11 +64,11 @@ include:
 
 # Collections
 collections:
-  modules: # Set a collection called pages that way the permalink will be by default url/page instead of url/pages/page.
+  components: # Set a collection called pages that way the permalink will be by default url/page instead of url/pages/page.
     output: true
   helpers:
     output: true
-  playground:
+  experiments:
     output: true
 
 # Exclude from processing.

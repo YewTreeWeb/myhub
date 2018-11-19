@@ -46,18 +46,6 @@ gulp.task('serve', ['sass', 'js', 'jekyll'], () => {
   browserSync.init(syncOptions);
 });
 
-// gulp.task('watch:scriptsfile', () => {
-//   return $.watch(paths.includeFoldeName + '/scripts-dev.+(html|md|MD|markdown|MARKDOWN)', () => {
-//     gulp.start('copy:scriptsfile');
-//   });
-// });
-
-// gulp.task('watch:jekyll', () => {
-//   return $.watch(settings.jekyllWatch, () => {
-//     gulp.start('jekyll-rebuild');
-//   });
-// });
-
 gulp.task('watch:fonts', () => {
   return $.watch(paths.fontFiles + '/**/*', () => {
     gulp.start('reload:fonts');
@@ -75,12 +63,6 @@ gulp.task('watch:cssVendors', () => {
     gulp.start('copy:cssVendors');
   });
 });
-
-// gulp.task('watch:scripts', () => {
-//   return $.watch(paths.jsFilesGlob, () => {
-//     gulp.start('reload:js');
-//   });
-// });
 
 gulp.task('watch:images', () => {
   return $.watch(paths.imageFilesGlob, () => {

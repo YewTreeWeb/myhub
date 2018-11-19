@@ -1,28 +1,38 @@
+{%- if page.path contains '_posts' -%}
+  {%- assign hero_title = Useful links -%}
+{%- elsif page.url == site.baseurl -%}
+  {%- assign hero_title = YewTree Hub -%}
+{%- else -%}
+  {%- assign hero_title = page.title -%}
+{%- endif -%}
+
+{% case page.path %}
+  {% when '_posts' %}
+    {%- assign hero_text = for when you need help, ideas and inspiration. -%}
+  {% when '_experiments' %}
+    {%- assign hero_text = into the lab -%}
+  {% when '_components' %}
+    {%- assign hero_text = let the code flow -%}
+  {% else %}
+    {%- assign hero_text = because everybody needs a place to learn... and CODE! -%}
+{% endcase %}
+
+{% comment %}
+<!-- {%- if page.url contains "/blog/" or page.path contains '_posts' -%}
+  {%- assign hero_text = for when you need help, ideas and inspiration. -%}
+{%- elsif page.path contains '_experiments' -%}
+  {%- assign hero_text = into the lab -%}
+{%- elsif page.path contains '_components' -%}
+  {%- assign hero_text = let the code flow -%}
+{%- else -%}
+  {%- assign hero_text = because everybody needs a place to learn... and CODE! -%}
+{%- endif -%} -->
+{% endcomment %}
+
 <section id="banner">
-  <div class="inner">
-    <h1>
-      {% if page.path contains '_posts' %}
-      	Useful links
-      {% elsif page.url == site.baseurl %}
-		YewTree Hub
-      {% else %}
-      	{{ page.title }}
-      {% endif %}
-    </h1>
-    <p class="banner__lead text-center">
-      {% if page.url contains "/blog/" or page.path contains '_posts' %}
-      	for when you need help and inspiration.
-      {% elsif page.path contains '_playground' %}
-      	let the code flow
-      {% elsif page.path contains '_modules' %}
-      	into the lab
-      {% else %}
-      	because everybody needs a place to learn... and CODE!
-      {% endif %}
-    </p>
-    <ul class="actions special">
-      <li><a href="#" class="button primary">Activate</a></li>
-    </ul>
+  <div class="banner__inner">
+    <h1 class="banner__title">{{ hero_title | escape }}</h1>
+    <p class="banner__lead text-center">{{ hero_text | escape }}</p>
   </div>
-  <a href="#one" class="more scrolly">Learn More</a>
+  <a href="#one" class="button button--banner scrolly" role="button">Learn More</a>
 </section>

@@ -91,7 +91,7 @@ gulp.task('sass', () => {
 
 gulp.task('criticalCSS', () => {
   criticalPages.map((page) => {
-    return gulp.src(paths.cssFiles + '/kubix.css')
+    return gulp.src(paths.cssFiles + '/main.css')
       .pipe($.plumber())
       .pipe($.penthouse({
         out: page.name + '.css',
