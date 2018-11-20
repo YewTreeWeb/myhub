@@ -27,74 +27,52 @@ layout: default
 
 <!-- Two -->
 <section id="two" class="wrapper alt style2">
-    <section class="spotlight">
-        <div class="image"><img src="/assets/images/pic01.jpg" alt="" /></div>
-        <div class="content">
-            <h2>Magna primis lobortis<br />
-                sed ullamcorper</h2>
-            <p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend
-                fringilla nullam aenean mi ligula.</p>
-        </div>
-    </section>
-    <section class="spotlight">
-        <div class="image"><img src="/assets/images/pic02.jpg" alt="" /></div>
-        <div class="content">
-            <h2>Tortor dolore feugiat<br />
-                elementum magna</h2>
-            <p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend
-                fringilla nullam aenean mi ligula.</p>
-        </div>
-    </section>
-    <section class="spotlight">
-        <div class="image"><img src="/assets/images/pic03.jpg" alt="" /></div>
-        <div class="content">
-            <h2>Augue eleifend aliquet<br />
-                sed condimentum</h2>
-            <p>Aliquam ut ex ut augue consectetur interdum. Donec hendrerit imperdiet. Mauris eleifend
-                fringilla nullam aenean mi ligula.</p>
-        </div>
-    </section>
+    {%- for page in site.pages -%}
+        {%- if page.type == 'collection' -%}
+            <section class="spotlight">
+                <img src="/assets/images/pic01.jpg" alt="" />
+                <div class="content">
+                    <h2>{{ page.title }}</h2>
+                    <p>{{ page.excerpt }}</p>
+                    <a href="{{ page.url }}" role="button">Read More</a>
+                </div>
+            </section>
+        {%- endif -%}
+    {%- endfor -%}
 </section>
 
 <!-- Three -->
 <section id="three" class="wrapper style3 special">
     <div class="inner">
         <header class="major">
-            <h2>Accumsan mus tortor nunc aliquet</h2>
-            <p>Aliquam ut ex ut augue consectetur interdum. Donec amet imperdiet eleifend<br />
-                fringilla tincidunt. Nullam dui leo Aenean mi ligula, rhoncus ullamcorper.</p>
+            <h2>Recent Posts</h2>
         </header>
         <ul class="features">
-            <li class="icon fa-paper-plane-o">
-                <h3>Arcu accumsan</h3>
-                <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo
-                    Aenean ligula consequat consequat.</p>
-            </li>
-            <li class="icon fa-laptop">
-                <h3>Ac Augue Eget</h3>
-                <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo
-                    Aenean ligula consequat consequat.</p>
-            </li>
-            <li class="icon fa-code">
-                <h3>Mus Scelerisque</h3>
-                <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo
-                    Aenean ligula consequat consequat.</p>
-            </li>
-            <li class="icon fa-headphones">
-                <h3>Mauris Imperdiet</h3>
-                <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo
-                    Aenean ligula consequat consequat.</p>
-            </li>
-            <li class="icon fa-heart-o">
-                <h3>Aenean Primis</h3>
-                <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo
-                    Aenean ligula consequat consequat.</p>
-            </li>
-            <li class="icon fa-flag-o">
-                <h3>Tortor Ut</h3>
-                <p>Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo
-                    Aenean ligula consequat consequat.</p>
-            </li>
+            {%- for post in site.posts limit: 6 -%}
+                <li class="feature">
+                    {%- if post.image -%}
+                        <picture>
+                            <source type="image/webp" srcset="/assets/images/{{ post.image.name }}.webp">
+                            <source type="image/jpg" srcset="/assets/images/{{ post.image.name }}.jpg">
+                            <img src="{{ post.image.name }}.jpg" alt="{{ post.image.alt }}">
+                        </picture>
+                    {%- else -%}
+                        {%- include default-image.html -%}
+                    {%- endif -%}
+                    <h3>{{ post.title }}
+                    <small>
+                        {% assign day = post.date | date: "%-d" %}
+                        {% case day %}
+                        {% when '1' or '21' or '31' %}{{ day }}<sup>st</sup>
+                        {% when '2' or '22' %}{{ day }}<sup>nd</sup>
+                        {% when '3' or '23' %}{{ day }}<sup>rd</sup>
+                        {% else %}{{ day }}<sup>th</sup>
+                        {% endcase %}
+                        {{ post.date | date: "%B %Y" }}
+                    </small></h3>
+                    <p>{{ post.excerpt }}</p>
+                </li>
+            {%- endfor -%}
         </ul>
     </div>
 </section>
@@ -103,12 +81,11 @@ layout: default
 <section id="cta" class="wrapper style4">
     <div class="inner">
         <header>
-            <h2>Arcue ut vel commodo</h2>
-            <p>Aliquam ut ex ut augue consectetur interdum endrerit imperdiet amet eleifend fringilla.</p>
+            <h2>YewTree Web</h2>
+            <p>Portfoilo website, showcasing all my work from employements to hobbies. The site will also give more information about the origins of YewTree Web.</p>
         </header>
-        <ul class="actions stacked">
-            <li><a href="#" class="button fit primary">Activate</a></li>
-            <li><a href="#" class="button fit">Learn More</a></li>
-        </ul>
+        <div class="actions">
+            <a href="https://yewtreeweb.co.uk" class="button fit primary" target="_blank">Visit</a>
+        </div>
     </div>
 </section>

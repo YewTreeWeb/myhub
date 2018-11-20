@@ -1,14 +1,19 @@
 <footer id="footer">
     <ul class="icons">
-        <li class="icon twitter"><a href="{{ site.twitter_link }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-        <li class="icon facebook"><a href="{{ site.facebook_link }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-        <li class="icon linkedIn"><a href="{{ site.linkedin_link }}" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-        <li class="icon instagram"><a href="{{ site.instagram_link }}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-        <li class="icon github"><a href="{{ site.github_link }}" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></li>
-        <li class="icon gitlab"><a href="{{ site.gitlab_link }}" target="_blank"><i class="fa fa-gitlab" aria-hidden="true"></i></a></li>
-        <li class="icon email"><a href="mailto:{{ site.email }}"><i class="fa fa-envelope-o" aria-hidden="true"></i><i class="fa fa-envelope-open-o" aria-hidden="true"></i></a></li>
+        <li class="icon twitter"><a href="{{ site.twitter_link }}" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+        <li class="icon facebook"><a href="{{ site.facebook_link }}" target="_blank"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+        <li class="icon linkedIn"><a href="{{ site.linkedin_link }}" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
+        <li class="icon instagram"><a href="{{ site.instagram_link }}" target="_blank"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+        <li class="icon github"><a href="{{ site.github_link }}" target="_blank"><i class="fab fa-github" aria-hidden="true"></i></a></li>
+        <li class="icon gitlab"><a href="{{ site.gitlab_link }}" target="_blank"><i class="fab fa-gitlab" aria-hidden="true"></i></a></li>
+        <li class="icon email"><a href="mailto:{{ site.email }}"><i class="fal fa-envelope" aria-hidden="true"></i><i class="fal fa-envelope-open" aria-hidden="true"></i></a></li>
     </ul>
-    <ul class="copyright">
-        <li>&copy; 2018 by Mathew Teague. All Rights Reserved.</li>
-    </ul>
+    <div class="copyright">
+        {% if page.url contains '/blog/' %}
+            <p>The majority of all work on this website has been done from tutorials please see above for references.</p>
+            {% else %}
+            <p>The majority of all work on this website has been done from tutorials for references please see my <a href="/blog.html">blog</a></p>
+        {% endif %}
+        <p>&copy; 2018 by Mathew Teague. All Rights Reserved.</p>
+    </div>
 </footer>

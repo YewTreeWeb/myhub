@@ -1,20 +1,20 @@
 {%- if page.path contains '_posts' -%}
-  {%- assign hero_title = Useful links -%}
+  {%- assign hero_title = 'Useful links' -%}
 {%- elsif page.url == site.baseurl -%}
-  {%- assign hero_title = YewTree Hub -%}
+  {%- assign hero_title = 'YewTree Hub' -%}
 {%- else -%}
-  {%- assign hero_title = page.title -%}
+  {%- assign hero_title = 'page.title' -%}
 {%- endif -%}
 
 {% case page.path %}
   {% when '_posts' %}
-    {%- assign hero_text = for when you need help, ideas and inspiration. -%}
+    {%- assign hero_text = 'for when you need help, ideas and inspiration.' -%}
   {% when '_experiments' %}
-    {%- assign hero_text = into the lab -%}
+    {%- assign hero_text = 'into the lab' -%}
   {% when '_components' %}
-    {%- assign hero_text = let the code flow -%}
+    {%- assign hero_text = 'let the code flow' -%}
   {% else %}
-    {%- assign hero_text = because everybody needs a place to learn... and CODE! -%}
+    {%- assign hero_text = 'because everybody needs a place to learn... and CODE!' -%}
 {% endcase %}
 
 {% comment %}
@@ -30,7 +30,7 @@
 {% endcomment %}
 
 <section id="banner">
-  <div class="banner__inner">
+  <div class="banner__inner inner">
     <h1 class="banner__title">{{ hero_title | escape }}</h1>
     <p class="banner__lead text-center">{{ hero_text | escape }}</p>
   </div>
