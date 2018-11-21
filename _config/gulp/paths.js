@@ -33,6 +33,7 @@ paths.imageFiles  = paths.assetsDir + paths.imageFolderName;
 paths.fontFiles   = paths.assetsDir + paths.fontFolderName;
 paths.dataFiles   = paths.assetsDir + paths.dataFolderName;
 paths.mdFiles     = paths.assetsDir + paths.postFolderName;
+paths.sassVendorFiles = paths.assetsDir + paths.stylesFolderName + '/' + paths.vendorFolderName;
 paths.cssVendorFiles = paths.assetsDir + paths.cssFolderName + '/' + paths.vendorFolderName;
 paths.vendorFiles = paths.assetsDir + paths.scriptFolderName + '/' + paths.vendorFolderName;
 

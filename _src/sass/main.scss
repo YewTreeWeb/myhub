@@ -1,3 +1,16 @@
+/*
+
+ Import Vendor Styles
+
+ */
+@import 'vendors/bourbon/bourbon';
+@import 'vendors/family/family';
+
+/*
+
+Project Styles
+
+*/
 @import 'libs/vars';
 @import 'libs/functions';
 @import 'libs/mixins';
@@ -186,6 +199,7 @@
 	h2 {
 		font-size: 1.35em;
 		line-height: 1.75em;
+		
 
 		@include breakpoint('<=small') {
 			font-size: 1.1em;
