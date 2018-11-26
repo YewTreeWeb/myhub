@@ -26,8 +26,45 @@
 		family-fixed:		('Courier New', monospace),
 		weight:				400,
 		weight-bold:		600,
-		weight-extrabold:	800
+		weight-extrabold:	800,
 	);
+
+$font-size-base: 16px !default;
+
+// Headings
+$h1: 36px !default;
+$h2: 30px !default;
+$h3: 28px !default;
+$h4: 25px !default;
+$h5: 23px !default;
+$h6: 18px !default;
+
+$headings: (
+    h1: (
+		size: $h2 $h1,
+        line: 1.65em 1.75em
+    ),
+    h2: (
+		size: $h3 $h2,
+        line: 1.65em 1.75em
+    ), 
+    h3: (
+		size: $h4 $h3,
+        line: 1.65em 1.75em
+    ), 
+    h4: (
+		size: $h5 $h4,
+        line: 1.5em
+    ), 
+    h5: (
+		size: $h6 $h5,
+        line: 1.5em
+    ), 
+    h6: (
+		size: $font-size-base $h6,
+        line: 1.5em
+    )
+);
 
 // Palette.
 	$palette: (
@@ -118,7 +155,7 @@
 		)
 	);
 
-	$color1: rgba(25, 25, 32, 1);
+$color1: rgba(25, 25, 32, 1);
 $color2: rgba(181, 217, 156, 1);
 $color3: rgba(71, 71, 71, 1);
 $color4: rgba(255, 254, 254, 1);

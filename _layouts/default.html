@@ -2,8 +2,6 @@
     {%- assign class = page.class | prepend: 'page-' -%}
 {%- elsif page.title -%}
     {%- assign class = page.title | prepend: 'page-' -%}
-{%- else -%}
-    {%- assign class = site.title -%}
 {%- endif -%}
 {%- if layout == post -%}
     {%- assign type = 'post' | prepend: 'type-' -%}
