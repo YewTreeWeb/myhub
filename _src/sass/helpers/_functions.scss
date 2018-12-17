@@ -135,44 +135,62 @@
 }
 
 /// Typographic units conversion
-@function convert($value, $currentUnit, $convertUnit){
-  @if $currentUnit == px{
+@function convert($value, $convertUnit, $convertBase: $convertBase) {
+  $currentUnit: unit($value);
+  $strippedValue: $value / ($value * 0 + 1);
 
-    @if $convertUnit == em{
-      @return $value / 16 + 0em;
-    }
-    @else if $convertUnit == %{
-      @return percentage($value / 16);
-    }
-
-  } @else if $currentUnit == ems {
-
-    @if $convertUnit == px{
-      @return $value * 16 + 0px;
-    }
-    @else if $convertUnit == %{
-      @return %age($value);
+  @if not unitless($convertBase) {
+    @if unit($convertBase) !=px {
+      @error "Not supported unit '#{unit($convertBase)}' as convert base!";
     }
 
-  } @else if $currentUnit == % {
+    $convertBase: $convertBase / ($convertBase * 0 + 1);
+  }
 
-    @if $convertUnit == px{
-      @return $value * 16 / 100 + 0px;
-    }
-    @else if $convertUnit == ems{
-      @return $value / 100 + 0em;
+  @if $currentUnit==px {
+    @if $convertUnit=='em' {
+      @return 0em+($strippedValue / $convertBase);
     }
 
-  } @else if $currentUnit == pts {
-
-    @if $convertUnit == px{
-      @return $value * 1.3333 +0px;
-    }
-    @else if $convertUnit == ems{
-      @return $value / 12 + 0em;
-    }
-    @else if $convertUnit == %{
-      @return percentage($value / 12)
+    @else if $convertUnit=='%' {
+      @return percentage($strippedValue / $convertBase);
     }
   }
+
+  @else if $currentUnit==em {
+    @if $convertUnit=='px' {
+      @return 0px+($strippedValue * $convertBase);
+    }
+
+    @else if $convertUnit=='%' {
+      @return percentage($strippedValue);
+    }
+  }
+
+  @else if $currentUnit=='%' {
+    @if $convertUnit=='px' {
+      @return 0em+($strippedValue * $convertBase / 100);
+    }
+
+    @else if $convertUnit=='em' {
+      @return 0em+($strippedValue / 100);
+    }
+  }
+
+  // TODO: Check for pt unit convert
+  @else if $currentUnit==pt {
+    @if $convertUnit=='px' {
+      @return 0px+($strippedValue * 1.3333);
+    }
+
+    @else if $convertUnit=='em' {
+      @return 0em+($strippedValue / 12);
+    }
+
+    @else if $convertUnit=='%' {
+      @return percentage($strippedValue / 12)
+    }
+  }
+
+  @error "Can't convert '#{$value}' to unit '#{$convertUnit}'!";
 }

@@ -1,5 +1,6 @@
 /// Vendors
 @import 'vendors/bourbon/bourbon';
+@import 'vendors/include-media/_include-media';
 @import 'vendors/family/family';
 @import 'vendors/hover/hover';
 @import 'vendors/hamburgers/hamburgers';
@@ -10,17 +11,11 @@
 @import 'helpers/mixins';
 
 @import 'partials/**/*';
+@import 'components/**/*';
 @import 'layouts/**/*';
 
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic');
-
 // Breakpoints.
-@include breakpoints((xlarge: (1281px, 1680px),
-large: (981px, 1280px),
-medium: (737px, 980px),
-small: (481px, 736px),
-xsmall: (null, 480px),
-));
+$breakpoints: (phone-sm: 320px, phone: 414px, phone-lg: 480px, tablet: 768px, tablet-lg: 1024px, desktop-sm: 1199px, desktop: 1440px, desktop-lg: 1680px);
 
 /* Basic */
 
@@ -41,7 +36,7 @@ html {
 }
 
 body {
-  background: _palette(bg);
+  background: $grey;
 
   // Stops initial animations until page loads.
   &.is-preload {
@@ -60,21 +55,21 @@ body,
 input,
 select,
 textarea {
-  color: _palette(fg);
-  font-family: _font(family);
+  color: $white;
+  font-family: $body-font;
   font-size: responsive $font-sm $font-size-base;
   font-range: 320px 812px;
-  font-weight: _font(weight);
+  font-weight: $weight;
   letter-spacing: _size(letter-spacing);
   line-height: 1.65em;
-  @include breakpoint('<=small') {
+  @include media('<=phone') {
     letter-spacing: _size(letter-spacing) * 0.5;
   }
 }
 
 hr {
   border: 0;
-  border-bottom: solid 2px _palette(border);
+  border-bottom: solid 2px $white;
   margin: (_size(element-margin) * 1.5) 0;
 
   &.major {
@@ -83,16 +78,16 @@ hr {
 }
 
 blockquote {
-  border-left: solid 4px _palette(border);
+  border-left: solid 4px $white;
   font-style: italic;
   margin: 0 0 _size(element-margin) 0;
   padding: 0.5em 0 0.5em 2em;
 }
 
 code {
-  background: _palette(border-bg);
+  background: $grey-dark;
   border-radius: 3px;
-  font-family: _font(family-fixed);
+  font-family: $accent-font;
   font-size: 0.9em;
   letter-spacing: 0;
   margin: 0 0.25em;
@@ -101,7 +96,7 @@ code {
 
 pre {
   -webkit-overflow-scrolling: touch;
-  font-family: _font(family-fixed);
+  font-family: $accent-font;
   font-size: 0.9em;
   margin: 0 0 _size(element-margin) 0;
 
@@ -113,3 +108,45 @@ pre {
   }
 }
 
+body.is-preload {
+  .hero {
+    h1 {
+      @include prefix('transform', 'scale(0.95)');
+      opacity: 0;
+
+      &:before,
+      &:after {
+        width: 0;
+      }
+    }
+
+    .more {
+      @include prefix('transform', 'translateY(8.5em)');
+      opacity: 0;
+    }
+
+    &:after {
+      opacity: 1;
+    }
+  }
+}
+
+body.is-mobile {
+  &.landing {
+    #page-wrapper {
+      background: none;
+    }
+
+    .hero,
+    .wrapper.style4 {
+      @include prefix('background-image', ('linear-gradient(top, rgba(0,0,0,0.5), rgba(0,0,0,0.5))', 'url("../../images/banner.jpg")'));
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    #footer {
+      background-color: $grey-darker;
+    }
+  }
+}

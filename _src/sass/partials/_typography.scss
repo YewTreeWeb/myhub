@@ -1,13 +1,12 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: $font-base;
+  font-family: $body-font;
 }
 
 strong,
 b {
-  color: _palette(fg-bold);
-  font-weight: _font(weight-bold);
+  font-weight: $weight-bold;
 }
 
 em,
@@ -24,9 +23,8 @@ $size in $headings {
   #{$heading} {
     font-size: responsive $size;
     font-range: 414px 812px;
-    font-family: $font-headers;
-    color: _palette(fg-bold);
-    font-weight: _font(weight-extrabold);
+    font-family: $header-font;
+    font-weight: $weight-medium;
     letter-spacing: _size(letter-spacing-alt);
     line-height: 1em;
     margin: 0 0 (_size(element-margin) * 0.5) 0;
@@ -75,7 +73,7 @@ sup {
 
 // Modifiers
 .bold {
-  font-weight: bold;
+  font-weight: $weight-bold;
 }
 
 .light {
@@ -84,6 +82,10 @@ sup {
 
 .semibold {
   font-weight: $weight-medium;
+}
+
+.extrabold {
+  font-weight: $weight-extrabold;
 }
 
 .uppercase {

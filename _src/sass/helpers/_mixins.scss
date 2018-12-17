@@ -362,7 +362,7 @@ $vendor-values: ( // Cross fade.
 }
 
 /// Responsive breakpoints
-@import 'breakpoints';
+// @import 'breakpoints';
 
 /// Center Positioning
 @mixin position($horizontal: true, $vertical: true, $absolute_center: false){
@@ -426,7 +426,7 @@ $vendor-values: ( // Cross fade.
       flex-flow: $direction wrap;
     } @else {
       flex-direction: $direction;
-      @include breakpoint() {
+      @include media('<=phone') {
         @if $direction == 'row' {
           flex-direction: column;
         } @else if $direction == 'row-reverse' {

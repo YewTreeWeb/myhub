@@ -10,6 +10,8 @@ const $ = require('gulp-load-plugins')({
 });
 import autoprefixer from 'autoprefixer';
 import rucksack from 'rucksack-css';
+import cssvariables from 'postcss-css-variables';
+import calc from 'postcss-calc';
 import {
   getConfigKeys
 } from '../config';
@@ -70,7 +72,10 @@ gulp.task('sass', () => {
     }).on('error', handleErrors))
     .pipe($.postcss([
       rucksack(settings.fallbacks),
-      autoprefixer(prefixer)
+      autoprefixer(prefixer),
+      cssvariables({
+        preserve: true
+      })
     ]))
     .pipe($.gcmq())
     .pipe($.csscomb())
