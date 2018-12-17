@@ -1,60 +1,251 @@
-// Vendor prefixes
-@mixin prefix($property, $value, $vendors: webkit moz ms o, $default: true) {
-  @if $vendors {
-    @each $vendor in $vendors {
-      #{"-" + $vendor + "-" + $property}: #{$value};
-    }
-  }
+// vendor.scss v1.0 | @ajlkn | MIT licensed */
 
-  @if $default {
-    #{$property}: #{$value};
-  }
-}
+// Vars.
 
-/// Makes an element's :before pseudoelement a FontAwesome icon.
-/// @param {string} $content Optional content value to use.
-/// @param {string} $where Optional pseudoelement to target (before or after).
-@mixin icon($content: false, $where: before) {
+/// Vendor prefixes.
+/// @var {list}
+$vendor-prefixes: ('-moz-',
+'-webkit-',
+'-ms-',
+'-o-',
+''
+);
 
-	text-decoration: none;
+/// Properties that should be vendorized.
+/// Data via caniuse.com, github.com/postcss/autoprefixer, and developer.mozilla.org
+/// @var {list}
+$vendor-properties: ( // Animation.
+'animation',
+'animation-delay',
+'animation-direction',
+'animation-duration',
+'animation-fill-mode',
+'animation-iteration-count',
+'animation-name',
+'animation-play-state',
+'animation-timing-function',
 
-	&:#{$where} {
+// Appearance.
+'appearance',
 
-		@if $content {
-			content: $content;
-		}
+// Backdrop filter.
+'backdrop-filter',
 
-		-moz-osx-font-smoothing: grayscale;
-		-webkit-font-smoothing: antialiased;
-		font-family: FontAwesome;
-		font-style: normal;
-		font-weight: normal;
-		text-transform: none !important;
+// Background image options.
+'background-clip',
+'background-origin',
+'background-size',
 
-	}
+// Box sizing.
+'box-sizing',
 
-}
+// Clip path.
+'clip-path',
 
-/// Encodes a SVG data URL so IE doesn't choke (via codepen.io/jakob-e/pen/YXXBrp).
-/// @param {string} $svg SVG data URL.
-/// @return {string} Encoded SVG data URL.
-@function svg-url($svg) {
+// Filter effects.
+'filter',
 
-	$svg: str-replace($svg, '"', '\'');
-	$svg: str-replace($svg, '%', '%25');
-	$svg: str-replace($svg, '<', '%3C');
-	$svg: str-replace($svg, '>', '%3E');
-	$svg: str-replace($svg, '&', '%26');
-	$svg: str-replace($svg, '#', '%23');
-	$svg: str-replace($svg, '{', '%7B');
-	$svg: str-replace($svg, '}', '%7D');
-	$svg: str-replace($svg, ';', '%3B');
+// Flexbox.
+'align-content',
+'align-items',
+'align-self',
+'flex',
+'flex-basis',
+'flex-direction',
+'flex-flow',
+'flex-grow',
+'flex-shrink',
+'flex-wrap',
+'justify-content',
+'order',
 
-	@return url("data:image/svg+xml;charset=utf8,#{$svg}");
+// Font feature.
+'font-feature-settings',
+'font-language-override',
+'font-variant-ligatures',
 
-}
+// Font kerning.
+'font-kerning',
 
-// Wraps @content in vendorized keyframe blocks.
+// Fragmented borders and backgrounds.
+'box-decoration-break',
+
+// Grid layout.
+'grid-column',
+'grid-column-align',
+'grid-column-end',
+'grid-column-start',
+'grid-row',
+'grid-row-align',
+'grid-row-end',
+'grid-row-start',
+'grid-template-columns',
+'grid-template-rows',
+
+// Hyphens.
+'hyphens',
+'word-break',
+
+// Masks.
+'mask',
+'mask-border',
+'mask-border-outset',
+'mask-border-repeat',
+'mask-border-slice',
+'mask-border-source',
+'mask-border-width',
+'mask-clip',
+'mask-composite',
+'mask-image',
+'mask-origin',
+'mask-position',
+'mask-repeat',
+'mask-size',
+
+// Multicolumn.
+'break-after',
+'break-before',
+'break-inside',
+'column-count',
+'column-fill',
+'column-gap',
+'column-rule',
+'column-rule-color',
+'column-rule-style',
+'column-rule-width',
+'column-span',
+'column-width',
+'columns',
+
+// Object fit.
+'object-fit',
+'object-position',
+
+// Regions.
+'flow-from',
+'flow-into',
+'region-fragment',
+
+// Scroll snap points.
+'scroll-snap-coordinate',
+'scroll-snap-destination',
+'scroll-snap-points-x',
+'scroll-snap-points-y',
+'scroll-snap-type',
+
+// Shapes.
+'shape-image-threshold',
+'shape-margin',
+'shape-outside',
+
+// Tab size.
+'tab-size',
+
+// Text align last.
+'text-align-last',
+
+// Text decoration.
+'text-decoration-color',
+'text-decoration-line',
+'text-decoration-skip',
+'text-decoration-style',
+
+// Text emphasis.
+'text-emphasis',
+'text-emphasis-color',
+'text-emphasis-position',
+'text-emphasis-style',
+
+// Text size adjust.
+'text-size-adjust',
+
+// Text spacing.
+'text-spacing',
+
+// Transform.
+'transform',
+'transform-origin',
+
+// Transform 3D.
+'backface-visibility',
+'perspective',
+'perspective-origin',
+'transform-style',
+
+// Transition.
+'transition',
+'transition-delay',
+'transition-duration',
+'transition-property',
+'transition-timing-function',
+
+// Unicode bidi.
+'unicode-bidi',
+
+// User select.
+'user-select',
+
+// Writing mode.
+'writing-mode',
+
+);
+
+/// Values that should be vendorized.
+/// Data via caniuse.com, github.com/postcss/autoprefixer, and developer.mozilla.org
+/// @var {list}
+$vendor-values: ( // Cross fade.
+'cross-fade',
+
+// Element function.
+'element',
+
+// Filter function.
+'filter',
+
+// Flexbox.
+'flex',
+'inline-flex',
+
+// Grab cursors.
+'grab',
+'grabbing',
+
+// Gradients.
+'linear-gradient',
+'repeating-linear-gradient',
+'radial-gradient',
+'repeating-radial-gradient',
+
+// Grid layout.
+'grid',
+'inline-grid',
+
+// Image set.
+'image-set',
+
+// Intrinsic width.
+'max-content',
+'min-content',
+'fit-content',
+'fill',
+'fill-available',
+'stretch',
+
+// Sticky position.
+'sticky',
+
+// Transform.
+'transform',
+
+// Zoom cursors.
+'zoom-in',
+'zoom-out',
+
+);
+
+@import 'breakpoints';
+
+/// Wraps @content in vendorized keyframe blocks.
 /// @param {string} $name Name.
 @mixin keyframes($name) {
 
@@ -70,353 +261,94 @@
     @content;
   }
 
-  @-o-keyframes #{$name} {
-    @content;
-  }
-
   @keyframes #{$name} {
     @content;
   }
 
 }
 
-// Detect user agent.
-@mixin browser($browsers: Mozilla Safari Opera Edge Firefox MSIE Chrome) {
-  @each $browser in $browsers {
-    html[data-browser*="#{$browser}"] & {
-      @content;
-    }
-  }
-}
+/// Vendorizes a declaration's property and/or value(s).
+/// @param {string} $property Property.
+/// @param {mixed} $value String/list of value(s).
+@mixin prefix($property, $value) {
 
-// Style placeholder elements.
-@mixin placeholder {
-  &::-webkit-input-placeholder {
-    @content;
-  }
+  // Determine if property should expand.
+  $expandProperty: index($vendor-properties, $property);
 
-  &input::-webkit-input-placeholder {
-    @content;
-  }
+  // Determine if value should expand (and if so, add '-prefix-' placeholder).
+  $expandValue: false;
 
-  &:-moz-placeholder {
-    @content;
-  }
+  @each $x in $value {
+    @each $y in $vendor-values {
+      @if $y==str-slice($x, 1, str-length($y)) {
 
-  &::-moz-placeholder {
-    @content;
-  }
+        $value: set-nth($value, index($value, $x), '-prefix-'+ $x);
+        $expandValue: true;
 
-  &:-ms-input-placeholder {
-    @content;
-  }
-
-  &:-o-input-placeholder {
-    @content;
-  }
-
-  &::placeholder {
-    @content;
-  }
-}
-
-// Create call to action for hover, active and focus.
-@mixin call-to-action($hover: true, $active: true, $focus: true) {
-  @if $hover and $active and $focus {
-
-    &:hover,
-    &:active,
-    &:focus {
-      @content;
-    }
-  }
-
-  @else if $hover {
-    &:hover {
-      @content;
-    }
-  }
-
-  @else if $active {
-    &:active {
-      @content;
-    }
-  }
-
-  @else if $focus {
-    &:focus {
-      @content;
-    }
-  }
-
-  @else {
-    @error "You must have an '#{$hover}' and/or '#{$active}' and/or '#{$focus}'.";
-  }
-}
-
-// Create an overlay for element.
-@mixin overlay($color: $black, $alpha: 0.3){
-  &::before{
-    content: '';
-    @include size(100%);
-    background-color: rgba($color,$alpha);
-    @include position;
-  }
-}
-
-//border-radius
-@mixin radius($radius) {
-  @include prefix(border-radius, $radius);
-}
-
-//box-shadow
-@mixin drop-shadow($x: 0px, $y: 0px, $blur: 0px, $alpha: 0.5) {
-  @include prefix(box-shadow, $x $y $blur rgba(0, 0, 0, $alpha));
-}
-
-//border
-@mixin border($border-width, $border-style, $border-color) {
-  border-width: $border-width;
-  border-style: $border-style;
-  border-color: $border-color;
-}
-
-// Apply gradient
-@mixin gradient($start-color, $end-color, $orientation) {
-  background: $start-color;
-
-  @if $orientation=='vertical' {
-    background: -webkit-linear-gradient(top, $start-color, $end-color);
-    background: linear-gradient(to bottom, $start-color, $end-color);
-  }
-
-  @else if $orientation=='horizontal' {
-    background: -webkit-linear-gradient(left, $start-color, $end-color);
-    background: linear-gradient(to right, $start-color, $end-color);
-  }
-
-  @else {
-    background: -webkit-radial-gradient(center, ellipse cover, $start-color, $end-color);
-    background: radial-gradient(ellipse at center, $start-color, $end-color);
-  }
-}
-
-// Position
-@mixin position($horizontal: true, $vertical: true) {
-  position: absolute;
-
-  @if ($horizontal and $vertical) {
-    @include prefix(transform, translateY(-50%));
-    top: 50%;
-    left: 0;
-	right: 0;
-	margin: 0 auto;
-  }
-
-  @else if ($horizontal) {
-    left: 0;
-	right: 0;
-	margin: 0 auto;
-  }
-
-  @else if ($vertical) {
-    @include prefix(transform, translateY(-50%));
-	top: 50%;
-  }
-}
-
-// Flex
-@mixin flex($align, $justify, $direction, $wrap: true) {
-  display: flex;
-  align-items: $align;
-
-  // If space-evenly is used.
-  @if $justify=='space-evenly' {
-
-    // Use fallback for Edge.
-    @supports (-ms-ime-align: auto) {
-      justify-content: space-between;
-
-      &::before,
-      &::after {
-        content: '';
-        display: block;
       }
     }
+  }
 
-    // If not Edge then apply space-evenly.
-    @supports not (-ms-ime-align: auto) {
-
-      // Run space-evenly.
-	  justify-content: space-between;
-	  // Run fallback if Safari.
-	  @include browser(Safari) {
-
-	    &::before,
-	    &::after {
-	      content: '';
-	      display: block;
-	    }
-	  }
-      justify-content: $justify;
+  // Expand property?
+  @if $expandProperty {
+    @each $vendor in $vendor-prefixes {
+      #{$vendor}#{$property}: #{str-replace-all($value, '-prefix-', $vendor)};
     }
   }
 
+  // Expand just the value?
+  @elseif $expandValue {
+    @each $vendor in $vendor-prefixes {
+      #{$property}: #{str-replace-all($value, '-prefix-', $vendor)};
+    }
+  }
+
+  // Neither? Treat them as a normal declaration.
   @else {
-    // If other justify-content used.
-    justify-content: $justify;
+    #{$property}: #{$value};
   }
 
-  @if str-index($direction, 'row') {
-    @if $wrap {
-      flex-flow: $direction wrap;
+}
+
+/// Makes an element's :before pseudoelement a FontAwesome icon.
+/// @param {string} $content Optional content value to use.
+/// @param {string} $where Optional pseudoelement to target (before or after).
+@mixin icon($content: false, $where: before) {
+
+  text-decoration: none;
+
+  &:#{$where} {
+
+    @if $content {
+      content: $content;
     }
 
-    @else {
-      flex-direction: $direction;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none !important;
 
-      @include media("<=phone") {
-        @if $direction=='row' {
-          flex-direction: column;
-        }
-
-        @else if $direction=='row-reverse' {
-          flex-direction: column-reverse;
-        }
-      }
-
-      flex-wrap: nowrap;
-    }
   }
 
-  @else {
-    flex-direction: $direction;
-  }
 }
 
-// Show the retina images on retina-friendly devices only.
-@mixin retina($image, $width, $height) {
+/// Encodes a SVG data URL so IE doesn't choke (via codepen.io/jakob-e/pen/YXXBrp).
+/// @param {string} $svg SVG data URL.
+/// @return {string} Encoded SVG data URL.
+@function svg-url($svg) {
 
-  @media (min--moz-device-pixel-ratio: 1.3),
-    (-o-min-device-pixel-ratio: 2.6/2),
-    (-webkit-min-device-pixel-ratio: 1.3),
-    (min-device-pixel-ratio: 1.3),
-    (min-resolution: 1.3dppx) {
-    /* Serving 2x image on Retina display */
-    background-image: url($image);
-    background-size: $width $height;
-  }
-}
+  $svg: str-replace($svg, '"', '\'');
+  $svg: str-replace($svg, '%', '%25');
+  $svg: str-replace($svg, '<', '%3C');
+  $svg: str-replace($svg, '>', '%3E');
+  $svg: str-replace($svg, '&', '%26');
+  $svg: str-replace($svg, '#', '%23');
+  $svg: str-replace($svg, '{', '%7B');
+  $svg: str-replace($svg, '}', '%7D');
+  $svg: str-replace($svg, ';', '%3B');
 
-// Only display content to screen readers
-//
-// See: https://a11yproject.com/posts/how-to-hide-content/
-// See: https://hugogiraudel.com/2016/10/13/css-hide-and-seek/
+  @return url("data:image/svg+xml;charset=utf8,#{$svg}");
 
-@mixin sr-only {
-  position: absolute;
-  @include size(1px, 1px);
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-// Use in conjunction with .sr-only to only display content when it's focused.
-//
-// Useful for "Skip to main content" links; see https://www.w3.org/TR/2013/NOTE-WCAG20-TECHS-20130905/G1
-//
-// Credit: HTML5 Boilerplate
-
-@mixin sr-only-focusable {
-
-  &:active,
-  &:focus {
-    position: static;
-    @include size(auto, auto);
-    overflow: visible;
-    clip: auto;
-    white-space: normal;
-  }
-}
-
-//css scale
-@mixin scale($factor) {
-  @include prefix(scale, $factor);
-}
-
-//css rotate
-@mixin rotate($deg) {
-  @include prefix(rotate, #{$deg}deg);
-}
-
-
-//css transform-origin
-@mixin transform-origin($x, $y) {
-  @include prefix(transform-origin, $x, $y);
-}
-
-//css transition
-@mixin transition($prop: (all), $time: (0.3s), $ease: (ease), $wait: (null)) {
-  @if length($prop) > 1 {
-    @for $i from 1 through length($prop) {
-      $delay: if(nth($wait, $i) !=null, #{nth($wait, $i)}s, '');
-
-      @include prefix(transition, nth($prop, $i) nth($time, $i) nth($ease, $i) $delay);
-    }
-  } @else {
-    @if nth($wait, 1) {
-      $delay: #{nth($wait, 1)}s;
-    }
-    @include prefix(transition, nth($prop, 1) nth($time, 1) nth($ease, 1) $delay);
-  }
-}
-
-//css transform
-@mixin transform($string) {
-  @include prefix(transform, $string);
-}
-
-// Effective for when you need to trigger hardware acceleration for some animation.
-@mixin hardware($backface: true, $perspective: 1000, $change: auto) {
-  @if $backface {
-    backface-visibility: hidden;
-  }
-
-  perspective: $perspective;
-  will-change: $change;
-}
-
-/**
- * Creates a responsive aspect ratio contianer
- *
- * Accepts:
- * - $width: {integer} Width of item
- * - $height: {integer} Height of item
- * - $element: {string} name of inner element class: ie. .content
- *
- * Usage:
- * .selector {
- *   @include aspect-ratio(16,9, inner_container);
- * }
- */
-
-@mixin aspect-ratio($width, $height, $element: content) {
-  position: relative;
-
-  &:before {
-    display: block;
-    content: " ";
-    width: 100%;
-    padding-top: ($height / $width) * 100%;
-  }
-
-  >.#{$element} {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
 }

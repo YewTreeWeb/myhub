@@ -38,39 +38,6 @@
 
 }
 
-/// Replaces a substring within another string.
-/// @author Hugo Giraudel
-/// @param {string} $string String.
-/// @param {string} $search Substring.
-/// @param {string} $replace Replacement.
-/// @return {string} Updated string.
-@function str-replace($string, $search, $replace: '') {
-
-  $index: str-index($string, $search);
-
-  @if $index {
-    @return str-slice($string, 1, $index - 1)+$replace+str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
-  }
-
-  @return $string;
-
-}
-
-/// Replaces a substring within each string in a list.
-/// @param {list} $strings List of strings.
-/// @param {string} $search Substring.
-/// @param {string} $replace Replacement.
-/// @return {list} Updated list of strings.
-@function str-replace-all($strings, $search, $replace: '') {
-
-  @each $string in $strings {
-    $strings: set-nth($strings, index($strings, $string), str-replace($string, $search, $replace));
-  }
-
-  @return $strings;
-
-}
-
 /// Gets a value from a map.
 /// @author Hugo Giraudel
 /// @param {map} $map Map.
@@ -125,102 +92,35 @@
   @return val($size, $keys...);
 }
 
-/// Change text colour based on background colour
-@function set-text-color($colour) {
-  @if (lightness($colour) > 50) {
-    @return $grey-extremely-dark; // Lighter backgorund, return dark color
-  }
-
-  @else {
-    @return $grey-extremely-light; // Darker background, return light color
-  }
-}
-
-/// Remove the unit of a length
-/// @param {Number} $number - Number to remove unit from
-/// @return {Number} - Unitless number
-@function strip-unit($number) {
-  @if type-of($number)=='number'and not unitless($number) {
-    @return $number / ($number * 0 + 1);
-  }
-
-  @return $number;
-}
-
-// Convert px to em
-@function em($pixels, $context: 16px) {
-  @if (unitless($pixels)) {
-    $pixels: $pixels * 1px;
-  }
-
-  @if (unitless($context)) {
-    $context: $context * 1px;
-  }
-
-  @return $pixels / $context * 1em;
-}
-
-/// Map deep get
+/// Replaces a substring within another string.
 /// @author Hugo Giraudel
-/// @access public
-/// @param {Map} $map - Map
-/// @param {Arglist} $keys - Key chain
-/// @return {*} - Desired value
-@function map-deep-get($map, $keys...) {
-  @each $key in $keys {
-    $map: map-get($map, $key);
+/// @param {string} $string String.
+/// @param {string} $search Substring.
+/// @param {string} $replace Replacement.
+/// @return {string} Updated string.
+@function str-replace($string, $search, $replace: '') {
+
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1)+$replace+str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
   }
 
-  @return $map;
+  @return $string;
+
 }
 
-/// Deep set function to set a value in nested maps
-/// @author Hugo Giraudel
-/// @access public
-/// @param {Map} $map - Map
-/// @param {List} $keys -  Key chaine
-/// @param {*} $value - Value to assign
-/// @return {Map} - Return map
-@function map-deep-set($map, $keys, $value) {
-  $maps: ($map, );
-  $result: null;
+/// Replaces a substring within each string in a list.
+/// @param {list} $strings List of strings.
+/// @param {string} $search Substring.
+/// @param {string} $replace Replacement.
+/// @return {list} Updated list of strings.
+@function str-replace-all($strings, $search, $replace: '') {
 
-  // If the last key is a map already
-  // Warn the user we will be overriding it with $value
-  @if type-of(nth($keys, -1))=="map" {
-    @warn "The last key you specified is a map; it will be overrided with `#{$value}`.";
+  @each $string in $strings {
+    $strings: set-nth($strings, index($strings, $string), str-replace($string, $search, $replace));
   }
 
-  // If $keys is a single key
-  // Just merge and return
-  @if length($keys)==1 {
-    @return map-merge($map, ($keys: $value));
-  }
+  @return $strings;
 
-  // Loop from the first to the second to last key from $keys
-  // Store the associated map to this key in the $maps list
-  // If the key doesn't exist, throw an error
-  @for $i from 1 through length($keys) - 1 {
-    $current-key: nth($keys, $i);
-    $current-map: nth($maps, -1);
-    $current-get: map-get($current-map, $current-key);
-
-    @if $current-get==null {
-      @error "Key `#{$key}` doesn't exist at current level in map.";
-    }
-
-    $maps: append($maps, $current-get);
-  }
-
-  // Loop from the last map to the first one
-  // Merge it with the previous one
-  @for $i from length($maps) through 1 {
-    $current-map: nth($maps, $i);
-    $current-key: nth($keys, $i);
-    $current-val: if($i==length($maps), $value, $result);
-    $result: map-merge($current-map, ($current-key: $current-val));
-  }
-
-  // Return result
-  @return $result;
 }
