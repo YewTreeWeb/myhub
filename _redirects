@@ -1,0 +1,2 @@
+# Redirect default Netlify subdomain to primary domain
+https://hub-yewtreeweb.netlify.com/* https://hub.yewtreeweb.co.uk/:splat 301!

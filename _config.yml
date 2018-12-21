@@ -59,8 +59,9 @@ plugins:
 
 # Include from processing.
 include:
-  - _pages
+  - pages
   - .htaccess
+  - _redirects
 
 # Collections
 collections:
