@@ -16,6 +16,7 @@
     <link rel="apple-touch-icon" href="icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
 
     <link rel="dns-prefetch" href="//cdn.polyfill.io">
     <link rel="dns-prefetch" href="//code.jquery.com">
@@ -33,11 +34,10 @@
 
     <link rel="stylesheet" href="/assets/css/normalize.css">
     <link rel="preload" href="{{ style | relative_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+    <noscript><link rel="stylesheet" href="{{ style | relative_url }}" /></noscript>
 
     {%- if jekyll.environment == 'production' -%}
-        <script async src="https://pro.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-3yBLeJ4waqGSAf4A8pjZ13UF7GuhgbdKnBQvIp/TkWoXtQbtwjlIPNjkDRJ46UCn"
-            crossorigin="anonymous"></script>
+        <script async src="https://pro.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-3yBLeJ4waqGSAf4A8pjZ13UF7GuhgbdKnBQvIp/TkWoXtQbtwjlIPNjkDRJ46UCn" crossorigin="anonymous"></script>
         <script>document.write('<script async src="/assets/js/fontawesome.min.js"><\/script>')</script>
     {%- else -%}
         <script async src="/assets/js/fontawesome.min.js"></script>

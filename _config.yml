@@ -15,16 +15,14 @@
 # in the templates via {{ site.myvariable }}.
 title: YewTree Hub
 email: mathew.teague@yewtreeweb.co.uk
-description: Just a cool Jekyll site by Kubix.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://yewtreeweb.co.uk/" # the base hostname & protocol for your site, e.g. http://example.com
+description: A hub for all my code snippets, code playgrounds and articles I find interesting.
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "https://yewtreeweb.co.uk" # the base hostname & protocol for your site, e.g. http://example.com
 # parmalink: /:title
-twitter_link: https://twitter.com/yewtreeweb
-facebook_link: https://m.facebook.com/Yew-Tree-Web-146294038864167/
+twitter_link: https://twitter.com/matteague
 linkedin_link: https://www.linkedin.com/in/mathewteague
 instagram_link: https://www.instagram.com/mat.teague/
 github_link: https://github.com/YewTreeWeb
-gitlab_link: https://gitlab.com/YewTreeWeb
 
 # Pagination V2
 pagination:

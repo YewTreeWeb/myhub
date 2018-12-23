@@ -17,22 +17,18 @@
     {%- assign hero_text = 'because everybody needs a place to learn... and CODE!' -%}
 {% endcase %}
 
-{% comment %}
-<!-- {%- if page.url contains "/blog/" or page.path contains '_posts' -%}
-  {%- assign hero_text = for when you need help, ideas and inspiration. -%}
-{%- elsif page.path contains '_experiments' -%}
-  {%- assign hero_text = into the lab -%}
-{%- elsif page.path contains '_components' -%}
-  {%- assign hero_text = let the code flow -%}
+{%- if page.url == site.baseurl -%}
+  {%- assign modifier = 'main' -%}
+{%- elsif condition -%}
+  {%- assign modifier = 'blog' -%}
 {%- else -%}
-  {%- assign hero_text = because everybody needs a place to learn... and CODE! -%}
-{%- endif -%} -->
-{% endcomment %}
+  {%- assign modifier = 'page' -%}
+{%- endif -%}
 
-<section id="banner">
-  <div class="banner__inner inner">
-    <h1 class="banner__title">{{ hero_title | escape }}</h1>
-    <p class="banner__lead text-center">{{ hero_text | escape }}</p>
+<section class="hero hero--{{ modifier }}">
+  <div class="hero__inner">
+    <h1 class="hero__title">{{ hero_title | escape }}</h1>
+    <p class="hero__lead text-center">{{ hero_text | escape }}</p>
   </div>
-  <a href="#one" class="button button--banner scrolly" role="button">Learn More</a>
+  <a href="#one" class="button button--hero scrolly" role="button">Learn More</a>
 </section>
